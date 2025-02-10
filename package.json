@@ -1,0 +1,12 @@
+{
+  "name": "astal-shell",
+  "dependencies": {
+    "astal": "/nix/store/hd98qfcisszjr5prmb9dz0wd7fq74ffn-astal-gjs/share/astal/gjs"
+  },
+  "devDependencies": {
+    "prettier": "3.5.0"
+  },
+  "scripts": {
+    "format": "prettier . --write"
+  }
+}
