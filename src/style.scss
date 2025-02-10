@@ -1,20 +1,35 @@
 // https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-$fg-color: #{"@theme_fg_color"};
-$bg-color: #{"@theme_bg_color"};
+$fg-color: #ffffff;
+$bg-color: #000000;
 
-window.Bar {
+* {
   background: transparent;
-  color: $fg-color;
-  font-weight: bold;
+  border-color: transparent;
+  outline-color: transparent;
+}
 
-  > centerbox {
-    background: $bg-color;
-    border-radius: 10px;
-    margin: 8px;
+window.Login {
+  color: $fg-color;
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 15px 20px;
+
+  entry:hover,
+  entry:focus,
+  entry:active,
+  entry:selected,
+  entry:focus-visible {
+    outline-color: $fg-color;
   }
 
   button {
     border-radius: 8px;
     margin: 2px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  button:hover {
+    background: rgba(0, 0, 0, 0.4);
   }
 }
