@@ -7,6 +7,7 @@
     "prettier": "3.5.0"
   },
   "scripts": {
+    "start": "ags run ./src/app.ts --gtk4",
     "format": "prettier . --write"
   }
 }
