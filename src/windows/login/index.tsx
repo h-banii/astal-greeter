@@ -1,10 +1,24 @@
 import Greet from "gi://AstalGreet";
-import { App, Astal, Gtk, Gdk } from "astal/gtk4";
+import {
+  App,
+  Astal,
+  Gtk,
+  Gdk,
+  astalify,
+  type ConstructProps,
+} from "astal/gtk4";
 import { Variable } from "astal";
 
-export default function Bar(gdkmonitor: Gdk.Monitor) {
-  const time = Variable("").poll(1000, "date");
+type PasswordEntryProps = ConstructProps<
+  Gtk.PasswordEntry,
+  Gtk.PasswordEntry.ConstructorProps
+>;
+const PasswordEntry = astalify<
+  Gtk.PasswordEntry,
+  Gtk.PasswordEntry.ConstructorProps
+>(Gtk.PasswordEntry, {});
 
+export default function Bar(gdkmonitor: Gdk.Monitor) {
   let username = "";
   let password = "";
 
@@ -38,7 +52,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           onActivate={(self) => (username = self.text)}
           halign={Gtk.Align.CENTER}
         />
-        <entry
+        <PasswordEntry
           hexpand
           placeholderText="password"
           onActivate={(self) => {
