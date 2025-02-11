@@ -33,10 +33,10 @@
         shellHook = ''
           export AGS_DIR=''$PWD
           run() {
-            ags run "''${AGS_DIR}/src/app.ts" --gtk4
+            ags run "''${AGS_DIR}/src/app.ts" --gtk4 "$@"
           }
           format() {
-            npx prettier ./src --write
+            npx prettier ''${AGS_DIR}/src --write
           }
           tmp=`mktemp`
           jq '.dependencies.astal |= "${astalPackages.gjs}/share/astal/gjs"' < package.json > $tmp
