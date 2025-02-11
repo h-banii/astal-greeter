@@ -7,7 +7,7 @@ import Picture from "../../widgets/picture";
 
 export default function Background(
   gdkmonitor: Gdk.Monitor,
-  loginStep: Variable<boolean>,
+  showLoginPopup: Variable<boolean>,
 ) {
   const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor;
 
@@ -16,7 +16,9 @@ export default function Background(
       visible
       layer={Astal.Layer.BACKGROUND}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
-      cssClasses={loginStep((b) => ["Background"].concat(b ? ["blur"] : []))}
+      cssClasses={showLoginPopup((b) =>
+        ["Background"].concat(b ? ["blur"] : []),
+      )}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
@@ -25,10 +27,10 @@ export default function Background(
         switch (keyval) {
           case Gdk.KEY_Return:
           case Gdk.KEY_space:
-            loginStep.set(true);
+            showLoginPopup.set(true);
             break;
           case Gdk.KEY_Escape:
-            loginStep.set(false);
+            showLoginPopup.set(false);
         }
       }}
     >
@@ -38,7 +40,7 @@ export default function Background(
           file={Gio.file_new_for_path(State.wallpaper)}
         />
         <box type="overlay" hexpand vexpand cssClasses={["gradient"]}></box>
-        <box type="overlay">{Clock(gdkmonitor, loginStep)}</box>
+        <box type="overlay">{Clock(gdkmonitor, showLoginPopup)}</box>
       </overlay>
     </window>
   );

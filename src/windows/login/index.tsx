@@ -26,7 +26,7 @@ const Frame = astalify<Gtk.Frame, Gtk.Frame.ConstructorProps>(Gtk.Frame, {});
 
 export default function Login(
   gdkmonitor: Gdk.Monitor,
-  loginStep: Variable<boolean>,
+  showLoginPopup: Variable<boolean>,
 ) {
   let username = "";
   let password = "";
@@ -49,11 +49,11 @@ export default function Login(
 
   return (
     <window
-      visible={loginStep((t) => t)}
+      visible={showLoginPopup((t) => t)}
       layer={Astal.Layer.OVERLAY}
       keymode={Astal.Keymode.ON_DEMAND}
       onKeyPressed={(self, keyval, keycode, state) => {
-        if (keyval == Gdk.KEY_Escape) loginStep.set(false);
+        if (keyval == Gdk.KEY_Escape) showLoginPopup.set(false);
       }}
       cssClasses={["Login"]}
       gdkmonitor={gdkmonitor}

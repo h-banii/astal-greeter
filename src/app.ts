@@ -8,9 +8,9 @@ function main() {
   const windows = new Map<Gdk.Monitor, Gtk.Widget[]>();
 
   const add_windows = (gdkmonitor: Gdk.Monitor) => {
-    const loginStep = Variable(false);
-    const login = Login(gdkmonitor, loginStep);
-    const background = Background(gdkmonitor, loginStep);
+    const showLoginPopup = Variable(false);
+    const login = Login(gdkmonitor, showLoginPopup);
+    const background = Background(gdkmonitor, showLoginPopup);
     windows.set(gdkmonitor, [login, background]);
   };
 
