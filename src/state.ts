@@ -1,4 +1,4 @@
-import { exec, GLib } from "astal";
+import { execAsync, GLib } from "astal";
 
 // State values are defined from CLI or from envvar
 // ags run -d WALLPAPER="'/path/to/file'"
@@ -19,11 +19,15 @@ if (
   State.wallpaper == wallpaper_path &&
   !GLib.file_test(wallpaper_path, GLib.FileTest.EXISTS)
 ) {
-  exec([
+  const nekosapi_get_random_image_file = (rating: string[] = []) =>
+    rating.length > 0
+      ? `https://api.nekosapi.com/v4/images/random/file?rating=${rating.join(",")}`
+      : `https://api.nekosapi.com/v4/images/random/file`;
+  await execAsync([
     "bash",
     "-c",
-    `curl "$(curl 'https://api.nekosapi.com/v4/images/random?limit=1' | jq -r '.[].url')" > ${wallpaper_path}`,
-  ]);
+    `curl -L '${nekosapi_get_random_image_file(["safe", "suggestive"])}' > ${wallpaper_path}`,
+  ]).catch(printerr);
 }
 
 export default State;
