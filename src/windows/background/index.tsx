@@ -8,6 +8,7 @@ import {
   type ConstructProps,
 } from "astal/gtk4";
 import { bind, Variable } from "astal";
+import State from "../../state";
 
 type PictureProps = ConstructProps<Gtk.Picture, Gtk.Picture.ConstructorProps>;
 const Picture = astalify<Gtk.Picture, Gtk.Picture.ConstructorProps>(
@@ -41,9 +42,7 @@ export default function Background(
       <Picture
         cssClasses={loginStep((b) => (b ? ["blur"] : []))}
         contentFit={Gtk.ContentFit.COVER}
-        file={Gio.file_new_for_path(
-          "/home/hbanii/wallpapers/Houshou Marine/darjeeling.png",
-        )}
+        file={Gio.file_new_for_path(State.wallpaper)}
       />
     </window>
   );
