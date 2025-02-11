@@ -24,7 +24,7 @@ const PasswordEntry = astalify<
 type FrameProps = ConstructProps<Gtk.Frame, Gtk.Frame.ConstructorProps>;
 const Frame = astalify<Gtk.Frame, Gtk.Frame.ConstructorProps>(Gtk.Frame, {});
 
-export default function Bar(
+export default function Login(
   gdkmonitor: Gdk.Monitor,
   loginStep: Variable<boolean>,
 ) {
