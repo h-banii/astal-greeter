@@ -59,6 +59,7 @@
             entry = "src/app.ts";
             gtk4 = true;
           };
+          fontloader = pkgs.callPackage ./font { };
           example = pkgs.symlinkJoin {
             inherit name;
 
