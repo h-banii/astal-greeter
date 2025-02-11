@@ -3,7 +3,6 @@ import { App, Astal, Gtk, Gdk, astalify } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
 import Clock from "./clock";
-import Picture from "../../widgets/picture";
 
 export default function Background(
   gdkmonitor: Gdk.Monitor,
@@ -34,22 +33,8 @@ export default function Background(
         }
       }}
     >
-      <overlay>
-        <Picture
-          contentFit={Gtk.ContentFit.COVER}
-          file={(() => {
-            try {
-              const file = Gio.file_new_for_path(State.wallpaper);
-              return file;
-            } catch {
-              printerr("Failed to load wallpaper");
-              return undefined;
-            }
-          })()}
-        />
-        <box type="overlay" hexpand vexpand cssClasses={["gradient"]}></box>
-        <box type="overlay">{Clock(gdkmonitor, showLoginPopup)}</box>
-      </overlay>
+      <box type="overlay" hexpand vexpand cssClasses={["gradient"]}></box>
+      <box type="overlay">{Clock(gdkmonitor, showLoginPopup)}</box>
     </window>
   );
 }

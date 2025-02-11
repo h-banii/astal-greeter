@@ -1,4 +1,5 @@
 @use "dynamic";
+@use "wallpaper";
 @use "sass:math";
 
 @function stroke($color, $radius) {
@@ -14,6 +15,7 @@
 
 window.Background {
   color: dynamic.$on_primary;
+  @extend .wallpaper;
 
   &.blur {
     filter: blur(4.5px) brightness(40%) contrast(115%) saturate(125%);
