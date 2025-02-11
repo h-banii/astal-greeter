@@ -26,6 +26,9 @@ export default function Background(
           case Gdk.KEY_Return:
           case Gdk.KEY_space:
             loginStep.set(true);
+            break;
+          case Gdk.KEY_Escape:
+            loginStep.set(false);
         }
       }}
     >
