@@ -1,7 +1,7 @@
 import { exec, GLib } from "astal";
 import State from "../state";
 
-const static_path = `${SRC}/style`;
+const static_path = `${SRC}/src/style`;
 const dynamic_path = `/tmp/greeter`;
 
 const colors = JSON.parse(exec(`matugen image '${State.wallpaper}' --json hex`))

@@ -16,9 +16,15 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       astalPackages = ags.inputs.astal.packages.${system};
-      extraPackages = with astalPackages; [
-        greet
-      ];
+      extraPackages =
+        with astalPackages;
+        [
+          greet
+        ]
+        ++ (with pkgs; [
+          matugen
+          dart-sass
+        ]);
     in
     {
       devShells.${system}.default = pkgs.mkShell {
@@ -35,7 +41,7 @@
         shellHook = ''
           export AGS_DIR=''$PWD
           run() {
-            ags run "''${AGS_DIR}/src/app.ts" --gtk4 "$@"
+            ags run "''${AGS_DIR}/src/app.ts" --gtk4 --define SRC="'""''${AGS_DIR}'" "$@"
           }
           format() {
             npx prettier ''${AGS_DIR}/src --write
