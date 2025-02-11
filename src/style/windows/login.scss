@@ -1,27 +1,35 @@
-@use "vars/colors";
+@use "colors";
 
 window.Login {
-  color: colors.$fg-color;
-  background: rgba(0, 0, 0, 0.2);
+  color: colors.$on_background;
+  background: rgba(colors.$background, 0.5);
   font-weight: bold;
   border-radius: 10px;
   padding: 15px 20px;
+
+  entry {
+    color: colors.$on_secondary_container;
+    background: colors.$secondary_container;
+  }
 
   entry:hover,
   entry:focus,
   entry:active,
   entry:selected,
   entry:focus-visible {
-    outline-color: colors.$fg-color;
+    color: colors.$on_primary_container;
+    background: colors.$primary_container;
+    outline-color: colors.$primary;
   }
 
   button {
     border-radius: 8px;
     margin: 2px;
-    background: rgba(0, 0, 0, 0.2);
+    color: colors.$on_primary_container;
+    background: colors.$primary_container;
   }
 
   button:hover {
-    background: rgba(0, 0, 0, 0.4);
+    background: darker(colors.$primary_container);
   }
 }

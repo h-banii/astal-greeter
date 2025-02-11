@@ -1,5 +1,5 @@
 import { App, Gtk, Gdk } from "astal/gtk4";
-import css from "./style/index.scss";
+import css from "./style";
 import Login from "./windows/login";
 import Background from "./windows/background";
 import { Variable } from "astal";

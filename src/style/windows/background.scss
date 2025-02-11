@@ -1,9 +1,6 @@
-@use "vars/colors";
+@use "colors";
 
 window.Background {
-  .dim {
-    background: rgba(0, 0, 0, 0.5);
-  }
   .blur {
     filter: blur(5px);
   }

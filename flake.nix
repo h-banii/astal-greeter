@@ -29,6 +29,8 @@
           nodejs
           nodePackages.npm
           gtk4
+          matugen
+          dart-sass
         ];
         shellHook = ''
           export AGS_DIR=''$PWD
