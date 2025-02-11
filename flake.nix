@@ -23,13 +23,31 @@
         pkgs.dart-sass
         self.packages.${system}.fontloader
       ];
+      inherit (nixpkgs) lib;
     in
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          (ags.packages.${system}.default.override {
+          ((ags.packages.${system}.default.override {
             inherit extraPackages;
-          })
+          }).overrideAttrs
+          (prev: {
+            # https://github.com/NixOS/nixpkgs/issues/321983
+            # https://github.com/NixOS/nixpkgs/issues/221017
+            postInstall = lib.concatStrings [
+              (prev.postInstall or "")
+              ''
+                export GDK_PIXBUF_MODULE_FILE="${
+                  pkgs.gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+                    extraLoaders = [
+                      pkgs.librsvg
+                      pkgs.webp-pixbuf-loader
+                    ];
+                  }
+                }"
+              ''
+            ];
+          }))
           nodejs
           nodePackages.npm
           gtk4

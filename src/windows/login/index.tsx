@@ -47,14 +47,6 @@ export default function Login(
       }
     });
 
-  const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
-    State.wallpaper,
-    -1,
-    350,
-    true,
-  );
-  const picture = Gtk.Picture.new_for_pixbuf(pixbuf);
-
   return (
     <window
       visible={loginStep((t) => t)}
@@ -69,37 +61,40 @@ export default function Login(
       application={App}
     >
       <overlay halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
-        <Frame>{picture}</Frame>
-        <box type="overlay" cssClasses={["gradient"]} />
+        <box cssClasses={["gradient"]}>
+          <label
+            cssClasses={["logo"]}
+            halign={Gtk.Align.START}
+            valign={Gtk.Align.END}
+          >
+            NixOS
+          </label>
+        </box>
         <Frame
           type="overlay"
-          vexpand
-          halign={Gtk.Align.START}
+          halign={Gtk.Align.END}
+          valign={Gtk.Align.END}
           cssClasses={["entries-container"]}
         >
-          <box orientation={Gtk.Orientation.VERTICAL} vexpand>
-            <box
-              spacing={6}
-              orientation={Gtk.Orientation.VERTICAL}
-              halign={Gtk.Align.START}
-              valign={Gtk.Align.CENTER}
-              vexpand
-            >
-              <entry
-                placeholderText="username"
-                onActivate={(self) => (username = self.text)}
-              />
-              <PasswordEntry
-                placeholderText="password"
-                onActivate={(self) => {
-                  password = self.text;
-                  login();
-                }}
-              />
-            </box>
-            <button valign={Gtk.Align.END} onClicked={login}>
-              login
-            </button>
+          <box
+            spacing={6}
+            orientation={Gtk.Orientation.VERTICAL}
+            halign={Gtk.Align.START}
+            valign={Gtk.Align.CENTER}
+            vexpand
+          >
+            <entry
+              placeholderText="username"
+              onActivate={(self) => (username = self.text)}
+            />
+            <PasswordEntry
+              placeholderText="password"
+              onActivate={(self) => {
+                password = self.text;
+                login();
+              }}
+            />
+            <button onClicked={login}>login</button>
           </box>
         </Frame>
       </overlay>

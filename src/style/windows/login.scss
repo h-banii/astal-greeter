@@ -6,7 +6,7 @@ window.Login {
 
   entry {
     color: dynamic.$on_secondary_container;
-    background: dynamic.$secondary_container;
+    background: rgba(dynamic.$secondary_container, 0.5);
   }
 
   entry:hover,
@@ -15,17 +15,45 @@ window.Login {
   entry:selected,
   entry:focus-visible {
     color: dynamic.$on_primary_container;
-    background: dynamic.$primary_container;
+    background: rgba(dynamic.$primary_container, 0.8);
     outline-color: dynamic.$primary;
   }
 
+  entry text selection {
+    color: dynamic.$on_primary;
+    background-color: dynamic.$primary;
+  }
+
+  .logo {
+    color: dynamic.$on_primary;
+    font-size: 50px;
+    padding: 0 10px;
+  }
+
   .entries-container {
-    padding: 25px;
-    background-color: dynamic.$surface_container;
+    padding: 20px;
   }
 
   .gradient {
-    background: linear-gradient(90deg, dynamic.$surface 20%, transparent);
+    min-width: 500px;
+    min-height: 300px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image:
+      linear-gradient(
+        45deg,
+        rgba(dynamic.$primary, 0.8) 8%,
+        transparent 50%,
+        transparent
+      ),
+      linear-gradient(
+        -45deg,
+        rgba(dynamic.$secondary, 0.8) 8%,
+        transparent 50%,
+        transparent
+      ),
+      url(dynamic.$wallpaper);
   }
 
   button {
