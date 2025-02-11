@@ -28,6 +28,7 @@ window.Login {
     color: dynamic.$on_primary;
     font-size: 50px;
     padding: 0 10px;
+    text-shadow: 4px 4px 0 dynamic.$primary;
   }
 
   .entries-container {

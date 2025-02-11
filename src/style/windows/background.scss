@@ -30,12 +30,14 @@ window.Background {
     .time {
       font-size: 150px;
       font-weight: 800;
+      text-shadow: 8px 8px 0 dynamic.$primary;
     }
 
     .date {
       padding-bottom: 30px;
       font-size: 50px;
       font-weight: 400;
+      text-shadow: 4px 4px 0 dynamic.$primary;
     }
 
     &.vanish {
