@@ -2,7 +2,10 @@
 
 window.Login {
   color: dynamic.$on_background;
-  background: rgba(dynamic.$background, 0.5);
+  background: linear-gradient(
+    rgba(dynamic.$primary, 0.1),
+    rgba(dynamic.$background, 0.1)
+  );
   font-weight: bold;
   border-radius: 10px;
   padding: 15px 20px;

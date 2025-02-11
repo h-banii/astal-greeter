@@ -9,6 +9,7 @@ import {
 } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
+import Clock from "./clock";
 
 type PictureProps = ConstructProps<Gtk.Picture, Gtk.Picture.ConstructorProps>;
 const Picture = astalify<Gtk.Picture, Gtk.Picture.ConstructorProps>(
@@ -26,7 +27,7 @@ export default function Background(
       visible
       layer={Astal.Layer.BACKGROUND}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
-      cssClasses={["Background"]}
+      cssClasses={loginStep((b) => ["Background"].concat(b ? ["blur"] : []))}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
@@ -39,11 +40,14 @@ export default function Background(
         }
       }}
     >
-      <Picture
-        cssClasses={loginStep((b) => (b ? ["blur"] : []))}
-        contentFit={Gtk.ContentFit.COVER}
-        file={Gio.file_new_for_path(State.wallpaper)}
-      />
+      <overlay>
+        <Picture
+          contentFit={Gtk.ContentFit.COVER}
+          file={Gio.file_new_for_path(State.wallpaper)}
+        />
+        <box type="overlay">{Clock(gdkmonitor)}</box>
+        <box cssClasses={["gradient"]} type="overlay" />
+      </overlay>
     </window>
   );
 }
