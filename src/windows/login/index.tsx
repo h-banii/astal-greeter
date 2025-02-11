@@ -1,4 +1,3 @@
-import Greet from "gi://AstalGreet";
 import {
   App,
   Astal,
@@ -7,7 +6,8 @@ import {
   astalify,
   type ConstructProps,
 } from "astal/gtk4";
-import { Variable } from "astal";
+import { bind, Variable } from "astal";
+import AstalGreet from "gi://AstalGreet";
 
 type PasswordEntryProps = ConstructProps<
   Gtk.PasswordEntry,
@@ -18,33 +18,51 @@ const PasswordEntry = astalify<
   Gtk.PasswordEntry.ConstructorProps
 >(Gtk.PasswordEntry, {});
 
-export default function Bar(gdkmonitor: Gdk.Monitor) {
+export default function Bar(
+  gdkmonitor: Gdk.Monitor,
+  loginStep: Variable<boolean>,
+) {
+  const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor;
   let username = "";
   let password = "";
 
   const login = () =>
-    Greet.login(username, password, "Hyprland", (_, res) => {
+    AstalGreet.login(username, password, "Hyprland", (_, res) => {
       try {
-        Greet.login_finish(res);
+        AstalGreet.login_finish(res);
       } catch (err) {
-        // TODO: Show error popup
-        printerr(err);
+        // TODO: Better error handling (if even possible...)
+        const message = `${err}`;
+        if (message.includes("socket not found")) {
+          App.quit();
+        } else {
+          // TODO: Show error popup
+          printerr(err);
+        }
       }
     });
 
   return (
     <window
-      visible
+      visible={loginStep((t) => t)}
+      layer={Astal.Layer.OVERLAY}
       keymode={Astal.Keymode.ON_DEMAND}
+      onKeyPressed={(self, keyval, keycode, state) => {
+        if (keyval == Gdk.KEY_Escape) loginStep.set(false);
+      }}
+      anchor={TOP | LEFT | RIGHT | BOTTOM}
       cssClasses={["Login"]}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
     >
       <box
+        halign={Gtk.Align.CENTER}
+        valign={Gtk.Align.CENTER}
         spacing={6}
         orientation={Gtk.Orientation.VERTICAL}
         cssName="centerbox"
+        cssClasses={loginStep((b) => (b ? ["dim"] : []))}
       >
         <entry
           hexpand

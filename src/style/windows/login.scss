@@ -1,15 +1,7 @@
-// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-$fg-color: #ffffff;
-$bg-color: #000000;
-
-* {
-  background: transparent;
-  border-color: transparent;
-  outline-color: transparent;
-}
+@use "vars/colors";
 
 window.Login {
-  color: $fg-color;
+  color: colors.$fg-color;
   background: rgba(0, 0, 0, 0.2);
   font-weight: bold;
   border-radius: 10px;
@@ -20,7 +12,7 @@ window.Login {
   entry:active,
   entry:selected,
   entry:focus-visible {
-    outline-color: $fg-color;
+    outline-color: colors.$fg-color;
   }
 
   button {
