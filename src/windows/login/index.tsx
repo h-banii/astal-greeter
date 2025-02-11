@@ -67,7 +67,7 @@ export default function Login(
             halign={Gtk.Align.START}
             valign={Gtk.Align.END}
           >
-            NixOS
+            {State.vendor_name}
           </label>
         </box>
         <Frame

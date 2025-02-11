@@ -12,6 +12,7 @@ const State = {
       ? WALLPAPER
       : (GLib.getenv("H_BANII_GREET_WALLPAPER") ?? wallpaper_path),
   font_family: GLib.getenv("H_BANII_GREET_FONT_FAMILY") ?? "Maple Mono NF",
+  vendor_name: GLib.get_os_info("VENDOR_NAME"),
 };
 
 if (
