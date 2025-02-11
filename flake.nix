@@ -45,13 +45,30 @@
         '';
       };
 
-      packages.${system}.default = ags.lib.bundle {
-        inherit pkgs;
-        inherit extraPackages;
-        src = ./.;
-        name = "h-banii.ags-shell";
-        entry = "src/app.ts";
-        gtk4 = true;
-      };
+      packages.${system} =
+        let
+          name = "h-banii.greeter-shell";
+        in
+        rec {
+          default = greeter;
+          greeter = ags.lib.bundle {
+            inherit pkgs extraPackages name;
+            src = ./.;
+            entry = "src/app.ts";
+            gtk4 = true;
+          };
+          example = pkgs.symlinkJoin {
+            inherit name;
+
+            paths = [ greeter ];
+
+            nativeBuildInputs = with pkgs; [ makeWrapper ];
+
+            postBuild = ''
+              wrapProgram $out/bin/${name} \
+                --set H_BANII_GREET_WALLPAPER /home/hbanii/wallpapers/1370937.png
+            '';
+          };
+        };
     };
 }
