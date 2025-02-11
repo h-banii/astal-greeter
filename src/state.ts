@@ -8,6 +8,6 @@ export default {
   wallpaper:
     typeof WALLPAPER != "undefined"
       ? WALLPAPER
-      : (GLib.environ_getenv(GLib.get_environ(), "H_BANII_GREET_WALLPAPER") ??
+      : (GLib.getenv("H_BANII_GREET_WALLPAPER") ??
         "/home/hbanii/wallpapers/Houshou Marine/darjeeling.png"),
 };
