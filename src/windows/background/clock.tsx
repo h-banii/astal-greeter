@@ -10,14 +10,15 @@ export default function Clock(
   return (
     <box
       cssName="Clock"
-      orientation={Gtk.Orientation.VERTICAL}
-      halign={Gtk.Align.START}
+      orientation={Gtk.Orientation.HORIZONTAL}
       valign={Gtk.Align.END}
-      spacing={0}
+      spacing={16}
       cssClasses={loginStep((b) => (b ? ["vanish"] : []))}
     >
-      <label cssClasses={["time"]} halign={Gtk.Align.START} label={time()} />
-      <label cssClasses={["date"]}>{exec("date '+%A, %B %d'")}</label>
+      <label cssClasses={["time"]} valign={Gtk.Align.END} label={time()} />
+      <label cssClasses={["date"]} valign={Gtk.Align.END}>
+        {exec("date '+%A, %B %d'")}
+      </label>
     </box>
   );
 }

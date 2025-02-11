@@ -1,8 +1,20 @@
 @use "dynamic";
+@use "sass:math";
+
+@function stroke($color, $radius) {
+  $hypotenuse: math.sqrt($radius * $radius + $radius * $radius);
+  @return $color($radius) + px 0px 0px,
+    $color $hypotenuse + px $hypotenuse + px 0px, $color 0px ($radius) + px 0px,
+    $color (-$hypotenuse + px) $hypotenuse + px 0px,
+    $color (-$radius) + px 0px 0px,
+    $color (-$hypotenuse + px) (-$hypotenuse + px) 0px,
+    $color 0px (-$radius) + px 0px,
+    $color $hypotenuse + px (-$hypotenuse + px) 0px;
+}
 
 window.Background {
   &.blur {
-    filter: blur(4.5px) brightness(25%) contrast(115%) saturate(125%);
+    filter: blur(4.5px) brightness(40%) contrast(115%) saturate(125%);
   }
 
   .gradient {
@@ -11,8 +23,7 @@ window.Background {
   }
 
   Clock {
-    padding: 20px 25px;
-    margin: 20px 25px;
+    padding: 0 40px;
 
     .time {
       font-size: 150px;
@@ -20,7 +31,7 @@ window.Background {
     }
 
     .date {
-      padding-left: 10px;
+      padding-bottom: 30px;
       font-size: 50px;
       font-weight: 400;
     }
@@ -31,5 +42,5 @@ window.Background {
     }
   }
 
-  transition: all 0.3s linear;
+  transition: all 0.4s ease-out;
 }
