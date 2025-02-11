@@ -1,6 +1,6 @@
 window.Background {
   &.blur {
-    filter: blur(5px) brightness(30%) contrast(100%) saturate(200%);
+    filter: blur(4.5px) brightness(25%) contrast(115%) saturate(125%);
   }
 
   Clock {
@@ -17,7 +17,12 @@ window.Background {
       font-size: 50px;
       font-weight: 400;
     }
+
+    &.vanish {
+      opacity: 0;
+      transition: opacity 0.5s linear;
+    }
   }
 
-  transition: filter 0.3s linear;
+  transition: all 0.3s linear;
 }

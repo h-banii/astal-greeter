@@ -1,7 +1,10 @@
 import { exec, Variable } from "astal";
 import { Gdk, Gtk } from "astal/gtk4";
 
-export default function Clock(gdkmonitor: Gdk.Monitor) {
+export default function Clock(
+  gdkmonitor: Gdk.Monitor,
+  loginStep: Variable<boolean>,
+) {
   const time = Variable("").poll(1000, "date '+%H:%m'");
 
   return (
@@ -11,6 +14,7 @@ export default function Clock(gdkmonitor: Gdk.Monitor) {
       halign={Gtk.Align.START}
       valign={Gtk.Align.END}
       spacing={0}
+      cssClasses={loginStep((b) => (b ? ["vanish"] : []))}
     >
       <label cssClasses={["time"]} halign={Gtk.Align.START} label={time()} />
       <label cssClasses={["date"]}>{exec("date '+%A, %B %d'")}</label>

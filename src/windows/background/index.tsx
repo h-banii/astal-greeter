@@ -45,7 +45,7 @@ export default function Background(
           contentFit={Gtk.ContentFit.COVER}
           file={Gio.file_new_for_path(State.wallpaper)}
         />
-        <box type="overlay">{Clock(gdkmonitor)}</box>
+        <box type="overlay">{Clock(gdkmonitor, loginStep)}</box>
         <box cssClasses={["gradient"]} type="overlay" />
       </overlay>
     </window>
