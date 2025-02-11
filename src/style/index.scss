@@ -1,7 +1,9 @@
 @use "windows/login";
 @use "windows/background";
+@use "dynamic";
 
 * {
+  font-family: dynamic.$font_family;
   background: transparent;
   border-color: transparent;
   outline-color: transparent;

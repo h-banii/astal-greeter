@@ -1,15 +1,15 @@
-@use "colors";
+@use "dynamic";
 
 window.Login {
-  color: colors.$on_background;
-  background: rgba(colors.$background, 0.5);
+  color: dynamic.$on_background;
+  background: rgba(dynamic.$background, 0.5);
   font-weight: bold;
   border-radius: 10px;
   padding: 15px 20px;
 
   entry {
-    color: colors.$on_secondary_container;
-    background: colors.$secondary_container;
+    color: dynamic.$on_secondary_container;
+    background: dynamic.$secondary_container;
   }
 
   entry:hover,
@@ -17,19 +17,19 @@ window.Login {
   entry:active,
   entry:selected,
   entry:focus-visible {
-    color: colors.$on_primary_container;
-    background: colors.$primary_container;
-    outline-color: colors.$primary;
+    color: dynamic.$on_primary_container;
+    background: dynamic.$primary_container;
+    outline-color: dynamic.$primary;
   }
 
   button {
     border-radius: 8px;
     margin: 2px;
-    color: colors.$on_primary_container;
-    background: colors.$primary_container;
+    color: dynamic.$on_primary_container;
+    background: dynamic.$primary_container;
   }
 
   button:hover {
-    background: darker(colors.$primary_container);
+    background: darker(dynamic.$primary_container);
   }
 }

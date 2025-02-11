@@ -9,13 +9,13 @@ const colors = JSON.parse(exec(`matugen image '${State.wallpaper}' --json hex`))
 
 const colors_scss = Object.entries(colors).reduce(
   (acc, [key, value]) => `$${key}: ${value}; ${acc}`,
-  "",
+  `$font_family: ${State.font_family};`,
 );
 
 exec([
   "bash",
   "-c",
-  `mkdir -p /tmp/greeter; printf '${colors_scss}' >${dynamic_path}/colors.scss`,
+  `mkdir -p /tmp/greeter; printf '${colors_scss}' >${dynamic_path}/dynamic.scss`,
 ]);
 
 export default exec(

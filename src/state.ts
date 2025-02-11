@@ -10,4 +10,5 @@ export default {
       ? WALLPAPER
       : (GLib.getenv("H_BANII_GREET_WALLPAPER") ??
         "/home/hbanii/wallpapers/Houshou Marine/darjeeling.png"),
+  font_family: GLib.getenv("H_BANII_GREET_FONT_FAMILY") ?? "Maple Mono NF",
 };
