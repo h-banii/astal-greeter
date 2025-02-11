@@ -14,7 +14,7 @@ function main() {
     windows.set(gdkmonitor, [login, background]);
   };
 
-  App.get_monitors().map(add_windows);
+  App.get_monitors().reverse().map(add_windows);
 }
 
 App.start({
