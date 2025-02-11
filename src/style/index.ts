@@ -5,7 +5,7 @@ const static_path = `${SRC}/src/style`;
 const dynamic_path = `/tmp/greeter`;
 
 const colors = JSON.parse(exec(`matugen image '${State.wallpaper}' --json hex`))
-  .colors.dark;
+  .colors.light;
 
 const colors_scss = Object.entries(colors).reduce(
   (acc, [key, value]) => `$${key}: ${value}; ${acc}`,

@@ -50,7 +50,7 @@ export default function Login(
   const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
     State.wallpaper,
     -1,
-    300,
+    350,
     true,
   );
   const picture = Gtk.Picture.new_for_pixbuf(pixbuf);
@@ -70,30 +70,35 @@ export default function Login(
     >
       <overlay halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
         <Frame>{picture}</Frame>
-        <box
+        <box type="overlay" cssClasses={["gradient"]} />
+        <Frame
           type="overlay"
-          spacing={6}
-          hexpand
-          orientation={Gtk.Orientation.VERTICAL}
-          halign={Gtk.Align.CENTER}
-          valign={Gtk.Align.CENTER}
-          cssClasses={loginStep((b) => (b ? ["dim"] : []))}
+          vexpand
+          halign={Gtk.Align.START}
+          cssClasses={["entries-container"]}
         >
-          <entry
-            placeholderText="username"
-            onActivate={(self) => (username = self.text)}
-          />
-          <PasswordEntry
-            placeholderText="password"
-            onActivate={(self) => {
-              password = self.text;
-              login();
-            }}
-          />
-          <button hexpand onClicked={login}>
-            login
-          </button>
-        </box>
+          <box
+            spacing={6}
+            orientation={Gtk.Orientation.VERTICAL}
+            halign={Gtk.Align.START}
+            valign={Gtk.Align.CENTER}
+          >
+            <entry
+              placeholderText="username"
+              onActivate={(self) => (username = self.text)}
+            />
+            <PasswordEntry
+              placeholderText="password"
+              onActivate={(self) => {
+                password = self.text;
+                login();
+              }}
+            />
+            <button hexpand onClicked={login}>
+              login
+            </button>
+          </box>
+        </Frame>
       </overlay>
     </window>
   );

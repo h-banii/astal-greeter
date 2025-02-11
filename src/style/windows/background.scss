@@ -13,13 +13,15 @@
 }
 
 window.Background {
+  color: dynamic.$on_primary_container;
+
   &.blur {
     filter: blur(4.5px) brightness(40%) contrast(115%) saturate(125%);
   }
 
   .gradient {
     opacity: 0.8;
-    background: linear-gradient(transparent 60%, dynamic.$background);
+    background: linear-gradient(transparent 60%, dynamic.$primary_container);
   }
 
   Clock {
@@ -38,7 +40,7 @@ window.Background {
 
     &.vanish {
       opacity: 0;
-      transition: opacity 0.5s linear;
+      transition: opacity 0.5s ease-out;
     }
   }
 

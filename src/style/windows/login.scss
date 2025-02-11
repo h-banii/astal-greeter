@@ -1,11 +1,6 @@
 @use "dynamic";
 
 window.Login {
-  color: dynamic.$on_background;
-  background: linear-gradient(
-    rgba(dynamic.$primary, 0.1),
-    rgba(dynamic.$background, 0.4)
-  );
   font-weight: bold;
   border-radius: 10px;
 
@@ -24,11 +19,19 @@ window.Login {
     outline-color: dynamic.$primary;
   }
 
+  .entries-container {
+    padding: 25px;
+    background-color: dynamic.$surface_container;
+  }
+
+  .gradient {
+    background: linear-gradient(90deg, dynamic.$surface 20%, transparent);
+  }
+
   button {
     border-radius: 8px;
-    margin: 2px;
-    color: dynamic.$on_primary_container;
-    background: dynamic.$primary_container;
+    color: dynamic.$on_primary;
+    background: dynamic.$primary;
   }
 
   button:hover {
