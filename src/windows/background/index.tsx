@@ -37,7 +37,15 @@ export default function Background(
       <overlay>
         <Picture
           contentFit={Gtk.ContentFit.COVER}
-          file={Gio.file_new_for_path(State.wallpaper)}
+          file={(() => {
+            try {
+              const file = Gio.file_new_for_path(State.wallpaper);
+              return file;
+            } catch {
+              printerr("Failed to load wallpaper");
+              return undefined;
+            }
+          })()}
         />
         <box type="overlay" hexpand vexpand cssClasses={["gradient"]}></box>
         <box type="overlay">{Clock(gdkmonitor, showLoginPopup)}</box>
