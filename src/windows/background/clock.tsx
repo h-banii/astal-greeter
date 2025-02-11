@@ -5,7 +5,7 @@ export default function Clock(
   gdkmonitor: Gdk.Monitor,
   loginStep: Variable<boolean>,
 ) {
-  const time = Variable("").poll(1000, "date '+%H:%m'");
+  const time = Variable("").poll(1000, "date '+%H:%M'");
 
   return (
     <box
