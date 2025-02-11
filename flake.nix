@@ -8,6 +8,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       ags,
       ...
@@ -16,15 +17,12 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       astalPackages = ags.inputs.astal.packages.${system};
-      extraPackages =
-        with astalPackages;
-        [
-          greet
-        ]
-        ++ (with pkgs; [
-          matugen
-          dart-sass
-        ]);
+      extraPackages = [
+        astalPackages.greet
+        pkgs.matugen
+        pkgs.dart-sass
+        self.packages.${system}.fontloader
+      ];
     in
     {
       devShells.${system}.default = pkgs.mkShell {
@@ -37,6 +35,7 @@
           gtk4
           matugen
           dart-sass
+          self.packages.${system}.fontloader
         ];
         shellHook = ''
           export AGS_DIR=''$PWD
