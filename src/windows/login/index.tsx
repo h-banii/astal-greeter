@@ -6,8 +6,11 @@ import {
   astalify,
   type ConstructProps,
 } from "astal/gtk4";
-import { bind, Variable } from "astal";
+import { bind, Gio, Variable } from "astal";
 import AstalGreet from "gi://AstalGreet";
+import Picture from "../../widgets/picture";
+import State from "../../state";
+import GdkPixbuf from "gi://GdkPixbuf?version=2.0";
 
 type PasswordEntryProps = ConstructProps<
   Gtk.PasswordEntry,
@@ -18,11 +21,13 @@ const PasswordEntry = astalify<
   Gtk.PasswordEntry.ConstructorProps
 >(Gtk.PasswordEntry, {});
 
+type FrameProps = ConstructProps<Gtk.Frame, Gtk.Frame.ConstructorProps>;
+const Frame = astalify<Gtk.Frame, Gtk.Frame.ConstructorProps>(Gtk.Frame, {});
+
 export default function Bar(
   gdkmonitor: Gdk.Monitor,
   loginStep: Variable<boolean>,
 ) {
-  const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor;
   let username = "";
   let password = "";
 
@@ -42,6 +47,14 @@ export default function Bar(
       }
     });
 
+  const pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
+    State.wallpaper,
+    -1,
+    300,
+    true,
+  );
+  const picture = Gtk.Picture.new_for_pixbuf(pixbuf);
+
   return (
     <window
       visible={loginStep((t) => t)}
@@ -50,39 +63,38 @@ export default function Bar(
       onKeyPressed={(self, keyval, keycode, state) => {
         if (keyval == Gdk.KEY_Escape) loginStep.set(false);
       }}
-      anchor={TOP | LEFT | RIGHT | BOTTOM}
       cssClasses={["Login"]}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
     >
-      <box
-        halign={Gtk.Align.CENTER}
-        valign={Gtk.Align.CENTER}
-        spacing={6}
-        orientation={Gtk.Orientation.VERTICAL}
-        cssName="centerbox"
-        cssClasses={loginStep((b) => (b ? ["dim"] : []))}
-      >
-        <entry
+      <overlay halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
+        <Frame>{picture}</Frame>
+        <box
+          type="overlay"
+          spacing={6}
           hexpand
-          placeholderText="username"
-          onActivate={(self) => (username = self.text)}
+          orientation={Gtk.Orientation.VERTICAL}
           halign={Gtk.Align.CENTER}
-        />
-        <PasswordEntry
-          hexpand
-          placeholderText="password"
-          onActivate={(self) => {
-            password = self.text;
-            login();
-          }}
-          halign={Gtk.Align.CENTER}
-        />
-        <button hexpand onClicked={login}>
-          login
-        </button>
-      </box>
+          valign={Gtk.Align.CENTER}
+          cssClasses={loginStep((b) => (b ? ["dim"] : []))}
+        >
+          <entry
+            placeholderText="username"
+            onActivate={(self) => (username = self.text)}
+          />
+          <PasswordEntry
+            placeholderText="password"
+            onActivate={(self) => {
+              password = self.text;
+              login();
+            }}
+          />
+          <button hexpand onClicked={login}>
+            login
+          </button>
+        </box>
+      </overlay>
     </window>
   );
 }

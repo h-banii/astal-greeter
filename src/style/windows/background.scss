@@ -1,6 +1,13 @@
+@use "dynamic";
+
 window.Background {
   &.blur {
     filter: blur(4.5px) brightness(25%) contrast(115%) saturate(125%);
+  }
+
+  .gradient {
+    opacity: 0.8;
+    background: linear-gradient(transparent 60%, dynamic.$background);
   }
 
   Clock {

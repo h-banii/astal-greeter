@@ -1,20 +1,9 @@
 import Gio from "gi://Gio";
-import {
-  App,
-  Astal,
-  Gtk,
-  Gdk,
-  astalify,
-  type ConstructProps,
-} from "astal/gtk4";
+import { App, Astal, Gtk, Gdk, astalify } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
 import Clock from "./clock";
-
-type PictureProps = ConstructProps<Gtk.Picture, Gtk.Picture.ConstructorProps>;
-const Picture = astalify<Gtk.Picture, Gtk.Picture.ConstructorProps>(
-  Gtk.Picture,
-);
+import Picture from "../../widgets/picture";
 
 export default function Background(
   gdkmonitor: Gdk.Monitor,
@@ -45,8 +34,8 @@ export default function Background(
           contentFit={Gtk.ContentFit.COVER}
           file={Gio.file_new_for_path(State.wallpaper)}
         />
+        <box type="overlay" hexpand vexpand cssClasses={["gradient"]}></box>
         <box type="overlay">{Clock(gdkmonitor, loginStep)}</box>
-        <box cssClasses={["gradient"]} type="overlay" />
       </overlay>
     </window>
   );
