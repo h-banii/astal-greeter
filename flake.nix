@@ -15,7 +15,8 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      extraPackages = with ags.inputs.astal.packages.${system}; [
+      astalPackages = ags.inputs.astal.packages.${system};
+      extraPackages = with astalPackages; [
         greet
       ];
     in
@@ -34,6 +35,13 @@
           run() {
             ags run "''${AGS_DIR}/src/app.ts" --gtk4
           }
+          format() {
+            npx prettier ./src --write
+          }
+          tmp=`mktemp`
+          jq '.dependencies.astal |= "${astalPackages.gjs}/share/astal/gjs"' < package.json > $tmp
+          mv $tmp package.json
+          npm i --frozen-lockfile
         '';
       };
 
