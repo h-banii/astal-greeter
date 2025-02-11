@@ -33,7 +33,6 @@ export default function Background(
         }
       }}
     >
-      <box type="overlay" hexpand vexpand cssClasses={["gradient"]}></box>
       <box type="overlay">{Clock(gdkmonitor, showLoginPopup)}</box>
     </window>
   );

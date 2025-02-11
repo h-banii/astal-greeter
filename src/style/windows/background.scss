@@ -1,5 +1,4 @@
 @use "dynamic";
-@use "wallpaper";
 @use "sass:math";
 
 @function stroke($color, $radius) {
@@ -15,15 +14,15 @@
 
 window.Background {
   color: dynamic.$on_primary;
-  @extend .wallpaper;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(transparent 80%, rgba(dynamic.$primary, 0.6)),
+    url(dynamic.$wallpaper);
 
   &.blur {
     filter: blur(4.5px) brightness(40%) contrast(115%) saturate(125%);
-  }
-
-  .gradient {
-    opacity: 0.8;
-    background: linear-gradient(transparent 80%, dynamic.$primary);
   }
 
   Clock {
