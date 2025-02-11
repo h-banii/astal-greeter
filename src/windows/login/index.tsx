@@ -77,24 +77,27 @@ export default function Login(
           halign={Gtk.Align.START}
           cssClasses={["entries-container"]}
         >
-          <box
-            spacing={6}
-            orientation={Gtk.Orientation.VERTICAL}
-            halign={Gtk.Align.START}
-            valign={Gtk.Align.CENTER}
-          >
-            <entry
-              placeholderText="username"
-              onActivate={(self) => (username = self.text)}
-            />
-            <PasswordEntry
-              placeholderText="password"
-              onActivate={(self) => {
-                password = self.text;
-                login();
-              }}
-            />
-            <button hexpand onClicked={login}>
+          <box orientation={Gtk.Orientation.VERTICAL} vexpand>
+            <box
+              spacing={6}
+              orientation={Gtk.Orientation.VERTICAL}
+              halign={Gtk.Align.START}
+              valign={Gtk.Align.CENTER}
+              vexpand
+            >
+              <entry
+                placeholderText="username"
+                onActivate={(self) => (username = self.text)}
+              />
+              <PasswordEntry
+                placeholderText="password"
+                onActivate={(self) => {
+                  password = self.text;
+                  login();
+                }}
+              />
+            </box>
+            <button valign={Gtk.Align.END} onClicked={login}>
               login
             </button>
           </box>
