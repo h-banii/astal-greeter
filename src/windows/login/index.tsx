@@ -13,6 +13,7 @@ import State from "../../state";
 import GdkPixbuf from "gi://GdkPixbuf?version=2.0";
 
 import Options from "./options";
+import SessionSelector from "./sessions";
 
 type PasswordEntryProps = ConstructProps<
   Gtk.PasswordEntry,
@@ -71,21 +72,7 @@ export default function Login(
         halign={Gtk.Align.CENTER}
         orientation={Gtk.Orientation.VERTICAL}
       >
-        <menubutton cssClasses={["session-button"]}>
-          <label
-            hexpand={false}
-            label={State.selected_session(
-              (session: number) => State.sessions[session].name,
-            )}
-          />
-          <popover halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
-            <box orientation={Gtk.Orientation.VERTICAL}>
-              {State.sessions.map((session: { name: string }) => (
-                <button label={session.name} />
-              ))}
-            </box>
-          </popover>
-        </menubutton>
+        <SessionSelector />
         <Frame
           cssClasses={["radial-gradient"]}
           halign={Gtk.Align.CENTER}
