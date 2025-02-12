@@ -3,7 +3,6 @@ import State from "../state";
 import colors_fallback from "./colors.json";
 
 const static_path = `${SRC}/src/style`;
-const dynamic_path = `/tmp/greeter`;
 
 const colors = await execAsync(
   `matugen image '${State.wallpaper}' --json hex --type scheme-fidelity`,
@@ -28,11 +27,11 @@ const colors_scss = Object.entries(colors).reduce(
 await execAsync([
   "bash",
   "-c",
-  `mkdir -p /tmp/greeter; printf '${colors_scss}' >${dynamic_path}/dynamic.scss`,
+  `mkdir -p ${State.tmp}; printf '${colors_scss}' >${State.tmp}/dynamic.scss`,
 ]);
 
 export default await execAsync(
-  `sass ${static_path}/index.scss --no-source-map --load-path=${static_path} --load-path=${dynamic_path}`,
+  `sass ${static_path}/index.scss --no-source-map --load-path=${static_path} --load-path=${State.tmp}`,
 ).catch((e) => {
   printerr("Sass failed:", e);
   return "";

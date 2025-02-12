@@ -29,9 +29,13 @@ const State = Object.assign(
     restart_icon: `${SRC}/icons/restart.svg`,
     sleep_icon: `${SRC}/icons/sleep.svg`,
     vendor_name: GLib.get_os_info("VENDOR_NAME"),
+    debug: false,
+    tmp: "/tmp/greeter",
   },
   config,
 );
+
+if (State.debug) State.tmp = "/tmp/greeter-debug";
 
 if (
   State.wallpaper == wallpaper_path &&

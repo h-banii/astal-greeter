@@ -32,7 +32,8 @@
           "wallpaper": null,
           "font_family": "M PLUS 2",
           "icon": "${icon}",
-          "vendor_name": "NixOS"
+          "vendor_name": "NixOS",
+          "debug": true
         }
       '';
       overrideAgs =
