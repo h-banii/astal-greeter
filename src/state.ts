@@ -34,7 +34,7 @@ const State = Object.assign(
       { name: "Do nothing", cmd: ":" },
     ],
     selected_session: 0,
-    debug: false,
+    debug: !GLib.getenv("GREETD_SOCK"),
     tmp: "/tmp/greeter",
   },
   config,

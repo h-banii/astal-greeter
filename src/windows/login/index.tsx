@@ -39,18 +39,16 @@ export default function Login(
       password,
       State.sessions.at(State.selected_session)?.cmd ?? ":",
       (_, res) => {
+        if (State.debug) {
+          App.quit();
+          return;
+        }
         try {
           AstalGreet.login_finish(res);
           // TODO: Show loading widget ?
         } catch (err) {
-          // TODO: Better error handling (if even possible...)
-          const message = `${err}`;
-          if (message.includes("socket not found")) {
-            App.quit();
-          } else {
-            // TODO: Show error popup
-            printerr(err);
-          }
+          // TODO: Show error popup
+          printerr(err);
         }
       },
     );
