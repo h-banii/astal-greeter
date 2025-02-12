@@ -102,28 +102,59 @@ window.Login {
     background: darker(dynamic.$primary_container);
   }
 
-  .button-icon {
-    @extend .image;
-    min-width: 50px;
-    min-height: 50px;
-    margin: 20px;
+  .outer-button {
+    color: dynamic.$on_primary;
+  }
+
+  .outer-button:hover {
+    color: dynamic.$on_primary_container;
+    background: rgba(dynamic.$primary_container, 0.5);
+    transition: all 0.1s linear;
   }
 
   .session-button {
+    @extend .outer-button;
+    border-radius: 10px;
   }
 
-  .shutdown {
-    @extend .button-icon;
-    background-image: url(dynamic.$shutdown_icon);
+  popover {
+    contents {
+      all: unset;
+    }
+    button {
+      @extend .outer-button;
+    }
   }
 
-  .restart {
-    @extend .button-icon;
-    background-image: url(dynamic.$restart_icon);
-  }
+  Options {
+    frame {
+      @extend .outer-button;
+      margin: 0 30px;
+      padding: 10px;
+    }
 
-  .sleep {
-    @extend .button-icon;
-    background-image: url(dynamic.$sleep_icon);
+    .button-icon {
+      background-position: center center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      min-width: 30px;
+      min-height: 30px;
+      padding: 5px;
+    }
+
+    .shutdown {
+      @extend .button-icon;
+      background-image: url(dynamic.$shutdown_icon);
+    }
+
+    .restart {
+      @extend .button-icon;
+      background-image: url(dynamic.$restart_icon);
+    }
+
+    .sleep {
+      @extend .button-icon;
+      background-image: url(dynamic.$sleep_icon);
+    }
   }
 }

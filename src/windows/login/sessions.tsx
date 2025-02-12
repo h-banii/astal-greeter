@@ -5,7 +5,11 @@ import State from "../../state";
 
 export default function Options() {
   return (
-    <menubutton cssClasses={["session-button"]}>
+    <menubutton
+      hexpand={false}
+      halign={Gtk.Align.CENTER}
+      cssClasses={["session-button"]}
+    >
       <label
         hexpand={false}
         label={State.selected_session(
