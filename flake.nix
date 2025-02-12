@@ -23,31 +23,35 @@
         pkgs.dart-sass
         self.packages.${system}.fontloader
       ];
+      overrideAgs =
+        agsPkg:
+        agsPkg.overrideAttrs (prev: {
+          # https://github.com/NixOS/nixpkgs/issues/321983
+          # https://github.com/NixOS/nixpkgs/issues/221017
+          postInstall = lib.concatStrings [
+            (prev.postInstall or "")
+            ''
+              export GDK_PIXBUF_MODULE_FILE="${
+                pkgs.gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+                  extraLoaders = [
+                    pkgs.librsvg
+                    pkgs.webp-pixbuf-loader
+                  ];
+                }
+              }"
+            ''
+          ];
+        });
       inherit (nixpkgs) lib;
     in
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          ((ags.packages.${system}.default.override {
-            inherit extraPackages;
-          }).overrideAttrs
-          (prev: {
-            # https://github.com/NixOS/nixpkgs/issues/321983
-            # https://github.com/NixOS/nixpkgs/issues/221017
-            postInstall = lib.concatStrings [
-              (prev.postInstall or "")
-              ''
-                export GDK_PIXBUF_MODULE_FILE="${
-                  pkgs.gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-                    extraLoaders = [
-                      pkgs.librsvg
-                      pkgs.webp-pixbuf-loader
-                    ];
-                  }
-                }"
-              ''
-            ];
-          }))
+          (overrideAgs (
+            ags.packages.${system}.default.override {
+              inherit extraPackages;
+            }
+          ))
           nodejs
           nodePackages.npm
           gtk4
@@ -76,25 +80,37 @@
         in
         rec {
           default = greeter;
-          greeter = ags.lib.bundle {
-            inherit pkgs extraPackages name;
-            src = ./.;
-            entry = "src/app.ts";
-            gtk4 = true;
-          };
+          greeter = overrideAgs (
+            ags.lib.bundle {
+              inherit pkgs extraPackages name;
+              src = ./.;
+              entry = "src/app.ts";
+              gtk4 = true;
+            }
+          );
           fontloader = pkgs.callPackage ./font { };
-          example = pkgs.symlinkJoin {
-            inherit name;
+          example =
+            let # TODO: Fetch logo
+              config = pkgs.writeText "h-banii.greeter-config" ''
+                {
+                  "font_family": "M PLUS 2",
+                  "icon": "/home/hbanii/scripts/greeter/nix-snowflake-white.svg",
+                  "vendor_name": "NixOS"
+                }
+              '';
+            in
+            pkgs.symlinkJoin {
+              inherit name;
 
-            paths = [ greeter ];
+              paths = [ greeter ];
 
-            nativeBuildInputs = with pkgs; [ makeWrapper ];
+              nativeBuildInputs = with pkgs; [ makeWrapper ];
 
-            postBuild = ''
-              wrapProgram $out/bin/${name} \
-                --set H_BANII_GREET_WALLPAPER /home/hbanii/wallpapers/1370937.png
-            '';
-          };
+              postBuild = ''
+                wrapProgram $out/bin/${name} \
+                  --set H_BANII_GREET_CONFIG ${config}
+              '';
+            };
         };
     };
 }

@@ -1,5 +1,4 @@
 declare const SRC: string;
-declare const WALLPAPER: string;
 
 declare module "inline:*" {
   const content: string;

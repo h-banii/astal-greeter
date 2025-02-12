@@ -1,20 +1,31 @@
-import { execAsync, GLib } from "astal";
+import { execAsync, GLib, readFileAsync } from "astal";
 
 // State values are defined from CLI or from envvar
 // ags run -d WALLPAPER="'/path/to/file'"
 // WALLPAPER=/path/to/file ags run
 
+const config_path = GLib.getenv("H_BANII_GREET_CONFIG");
+const config =
+  config_path != null
+    ? await readFileAsync(config_path)
+        .then(JSON.parse)
+        .catch((e) => {
+          printerr(e);
+          return {};
+        })
+    : {};
+
 const wallpaper_path = "/tmp/greeter/wallpaper";
 
-const State = {
-  wallpaper:
-    typeof WALLPAPER != "undefined"
-      ? WALLPAPER
-      : (GLib.getenv("H_BANII_GREET_WALLPAPER") ?? wallpaper_path),
-  font_family: GLib.getenv("H_BANII_GREET_FONT_FAMILY") ?? "Maple Mono NF",
-  icon: GLib.getenv("H_BANII_GREET_ICON") ?? "",
-  vendor_name: GLib.get_os_info("VENDOR_NAME"),
-};
+const State = Object.assign(
+  {
+    wallpaper: wallpaper_path,
+    font_family: "",
+    icon: "",
+    vendor_name: GLib.get_os_info("VENDOR_NAME"),
+  },
+  config,
+);
 
 if (
   State.wallpaper == wallpaper_path &&
