@@ -13,7 +13,7 @@ export default function Background(
   return (
     <window
       visible
-      layer={Astal.Layer.TOP}
+      layer={State.debug ? Astal.Layer.TOP : Astal.Layer.BACKGROUND}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
       cssClasses={showLoginPopup((b) =>
         ["Background"].concat(b ? ["blur"] : []),
