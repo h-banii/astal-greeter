@@ -12,6 +12,7 @@ import Picture from "../../widgets/picture";
 import State from "../../state";
 import GdkPixbuf from "gi://GdkPixbuf?version=2.0";
 
+import Frame from "../../widgets/frame";
 import Options from "./options";
 import SessionSelector from "./sessions";
 
@@ -23,9 +24,6 @@ const PasswordEntry = astalify<
   Gtk.PasswordEntry,
   Gtk.PasswordEntry.ConstructorProps
 >(Gtk.PasswordEntry, {});
-
-type FrameProps = ConstructProps<Gtk.Frame, Gtk.Frame.ConstructorProps>;
-const Frame = astalify<Gtk.Frame, Gtk.Frame.ConstructorProps>(Gtk.Frame, {});
 
 export default function Login(
   gdkmonitor: Gdk.Monitor,
