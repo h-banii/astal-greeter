@@ -90,7 +90,7 @@
 
       packages.${system} =
         let
-          name = "h-banii.greeter-shell";
+          name = "h-banii.greeter";
         in
         rec {
           default = greeter;
