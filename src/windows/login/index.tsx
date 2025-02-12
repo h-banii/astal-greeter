@@ -68,40 +68,40 @@ export default function Login(
         valign={Gtk.Align.CENTER}
       >
         <Frame cssClasses={["gradient"]}>
-          <Frame
-            halign={Gtk.Align.START}
-            vexpand
-            cssClasses={["login-container"]}
-          >
-            <box
-              spacing={7}
-              orientation={Gtk.Orientation.VERTICAL}
+          <box>
+            <Frame
               halign={Gtk.Align.START}
-              valign={Gtk.Align.CENTER}
               vexpand
+              cssClasses={["login-container"]}
             >
-              <label
-                cssClasses={["logo"]}
-                halign={Gtk.Align.CENTER}
+              <box
+                spacing={7}
+                orientation={Gtk.Orientation.VERTICAL}
+                halign={Gtk.Align.START}
+                valign={Gtk.Align.CENTER}
+                vexpand
               >
-                {State.vendor_name}
-              </label>
-              <entry
-                placeholderText="username"
-                onActivate={(self) => (username = self.text)}
-              />
-              <PasswordEntry
-                placeholderText="password"
-                onActivate={(self) => {
-                  password = self.text;
-                  login();
-                }}
-              />
-              <button cssClasses={["login-button"]} onClicked={login}>
-                login
-              </button>
-            </box>
-          </Frame>
+                <label cssClasses={["vendor-name"]} halign={Gtk.Align.CENTER}>
+                  {State.vendor_name}
+                </label>
+                <entry
+                  placeholderText="username"
+                  onActivate={(self) => (username = self.text)}
+                />
+                <PasswordEntry
+                  placeholderText="password"
+                  onActivate={(self) => {
+                    password = self.text;
+                    login();
+                  }}
+                />
+                <button cssClasses={["login-button"]} onClicked={login}>
+                  login
+                </button>
+              </box>
+            </Frame>
+            <Frame hexpand vexpand cssClasses={["icon"]}></Frame>
+          </box>
         </Frame>
       </Frame>
     </window>

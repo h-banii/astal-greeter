@@ -48,11 +48,20 @@ window.Login {
     background-color: dynamic.$primary;
   }
 
-  .logo {
+  .vendor-name {
     color: dynamic.$primary;
     font-size: 50px;
     padding: 0 10px;
     /* text-shadow: stroke(dynamic.$on_primary, 1); */
+  }
+
+  .icon {
+    opacity: 0.8;
+    margin: 30px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(dynamic.$icon);
   }
 
   .login-container {

@@ -17,7 +17,7 @@ const colors = await execAsync(
 
 const colors_scss = Object.entries(colors).reduce(
   (acc, [key, value]) => `$${key}: ${value}; ${acc}`,
-  `$font_family: "${State.font_family}"; $wallpaper: "file://${State.wallpaper}"`,
+  `$font_family: "${State.font_family}"; $wallpaper: "file://${State.wallpaper}"; $icon: "file://${State.icon}"`,
 );
 
 await execAsync([
