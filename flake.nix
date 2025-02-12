@@ -81,6 +81,7 @@
           tmp=`mktemp`
           jq '.dependencies.astal |= "${astalPackages.gjs}/share/astal/gjs"' < package.json > $tmp
           mv $tmp package.json
+          rm -f ./config.json
           cp -R ${config} ./config.json
           npm i --frozen-lockfile
         '';
