@@ -18,7 +18,9 @@ const config =
         })
     : {};
 
-const wallpaper_path = "/tmp/greeter/wallpaper";
+const DEBUG = !GLib.getenv("GREETD_SOCK");
+const TMP = DEBUG ? "/tmp/greeter-debug" : "/tmp/greeter";
+const wallpaper_path = `${TMP}/wallpaper`;
 
 const State = Object.assign(
   {
@@ -34,14 +36,12 @@ const State = Object.assign(
       { name: "Do nothing", cmd: ":" },
     ],
     selected_session: Variable(0),
-    debug: !GLib.getenv("GREETD_SOCK"),
+    debug: DEBUG,
     darkMode: false,
-    tmp: "/tmp/greeter",
+    tmp: TMP,
   },
   config,
 );
-
-if (State.debug) State.tmp = "/tmp/greeter-debug";
 
 if (
   State.wallpaper == wallpaper_path &&
