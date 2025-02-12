@@ -23,6 +23,17 @@
         pkgs.dart-sass
         self.packages.${system}.fontloader
       ];
+      icon = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/refs/heads/master/logo/nix-snowflake-white.svg";
+        hash = "sha256-J/t94Bz0fUCL92m1JY9gznu0DLfy6uIQO6AJGK3CEAY=";
+      };
+      config = pkgs.writeText "h-banii.greeter-config" ''
+        {
+          "font_family": "M PLUS 2",
+          "icon": "${icon}",
+          "vendor_name": "NixOS"
+        }
+      '';
       overrideAgs =
         agsPkg:
         agsPkg.overrideAttrs (prev: {
@@ -70,6 +81,7 @@
           tmp=`mktemp`
           jq '.dependencies.astal |= "${astalPackages.gjs}/share/astal/gjs"' < package.json > $tmp
           mv $tmp package.json
+          cp -R ${config} ./config.json
           npm i --frozen-lockfile
         '';
       };
@@ -89,28 +101,18 @@
             }
           );
           fontloader = pkgs.callPackage ./font { };
-          example =
-            let # TODO: Fetch logo
-              config = pkgs.writeText "h-banii.greeter-config" ''
-                {
-                  "font_family": "M PLUS 2",
-                  "icon": "/home/hbanii/scripts/greeter/nix-snowflake-white.svg",
-                  "vendor_name": "NixOS"
-                }
-              '';
-            in
-            pkgs.symlinkJoin {
-              inherit name;
+          example = pkgs.symlinkJoin {
+            inherit name;
 
-              paths = [ greeter ];
+            paths = [ greeter ];
 
-              nativeBuildInputs = with pkgs; [ makeWrapper ];
+            nativeBuildInputs = with pkgs; [ makeWrapper ];
 
-              postBuild = ''
-                wrapProgram $out/bin/${name} \
-                  --set H_BANII_GREET_CONFIG ${config}
-              '';
-            };
+            postBuild = ''
+              wrapProgram $out/bin/${name} \
+                --set H_BANII_GREET_CONFIG ${config}
+            '';
+          };
         };
     };
 }
