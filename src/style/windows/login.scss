@@ -109,20 +109,18 @@ window.Login {
   .outer-button:hover {
     color: dynamic.$on_primary_container;
     background: rgba(dynamic.$primary_container, 0.5);
-    transition: all 0.1s linear;
+    transition: all 0.2s linear;
   }
 
-  .session-button {
-    @extend .outer-button;
-    border-radius: 10px;
-  }
-
-  popover {
-    contents {
-      all: unset;
-    }
-    button {
+  Sessions {
+    .display {
       @extend .outer-button;
+    }
+
+    .select {
+      button {
+        @extend .outer-button;
+      }
     }
   }
 
@@ -130,15 +128,23 @@ window.Login {
     frame {
       @extend .outer-button;
       margin: 0 30px;
-      padding: 10px;
+      padding: 20px;
+    }
+
+    frame:hover {
+      background: radial-gradient(
+        closest-side,
+        rgba(dynamic.$primary_container, 0.5),
+        transparent
+      );
     }
 
     .button-icon {
       background-position: center center;
       background-size: contain;
       background-repeat: no-repeat;
-      min-width: 30px;
-      min-height: 30px;
+      min-width: 25px;
+      min-height: 25px;
       padding: 5px;
     }
 

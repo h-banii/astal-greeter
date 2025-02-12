@@ -3,26 +3,34 @@ import { Gdk, Gtk } from "astal/gtk4";
 
 import State from "../../state";
 
-export default function Options() {
+export default function Sessions() {
+  const visibleChildName = Variable("display");
+
   return (
-    <menubutton
-      hexpand={false}
+    <stack
+      cssName="Sessions"
       halign={Gtk.Align.CENTER}
-      cssClasses={["session-button"]}
+      visibleChildName={visibleChildName()}
     >
-      <label
-        hexpand={false}
+      <button
+        cssClasses={["display"]}
+        name="display"
         label={State.selected_session(
           (session: number) => State.sessions[session].name,
         )}
+        onClicked={() => visibleChildName.set("select")}
       />
-      <popover halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
-        <box orientation={Gtk.Orientation.VERTICAL}>
-          {State.sessions.map((session: { name: string }) => (
-            <button label={session.name} />
-          ))}
-        </box>
-      </popover>
-    </menubutton>
+      <box spacing={20} cssClasses={["select"]} name="select">
+        {State.sessions.map((session: { name: string }, index: number) => (
+          <button
+            label={session.name}
+            onClicked={() => {
+              State.selected_session.set(index);
+              visibleChildName.set("display");
+            }}
+          />
+        ))}
+      </box>
+    </stack>
   );
 }
