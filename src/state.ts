@@ -29,6 +29,11 @@ const State = Object.assign(
     restart_icon: `${SRC}/icons/restart.svg`,
     sleep_icon: `${SRC}/icons/sleep.svg`,
     vendor_name: GLib.get_os_info("VENDOR_NAME"),
+    sessions: [
+      { name: "Hyprland", cmd: "uwsm start -- hyprland.desktop" },
+      { name: "Do nothing", cmd: ":" },
+    ],
+    selected_session: 0,
     debug: false,
     tmp: "/tmp/greeter",
   },
