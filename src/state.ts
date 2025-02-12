@@ -35,6 +35,7 @@ const State = Object.assign(
     ],
     selected_session: Variable(0),
     debug: !GLib.getenv("GREETD_SOCK"),
+    darkMode: false,
     tmp: "/tmp/greeter",
   },
   config,

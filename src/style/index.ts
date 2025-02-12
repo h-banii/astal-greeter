@@ -13,7 +13,7 @@ const colors = await execAsync(
     printerr("Matugen failed:", e);
     return colors_fallback;
   })
-  .then((v) => v.colors.light);
+  .then((v) => v.colors[State.darkMode ? "dark" : "light"]);
 
 const colors_scss = Object.entries(colors).reduce(
   (acc, [key, value]) => `$${key}: ${value}; ${acc}`,
