@@ -25,8 +25,6 @@ const colors_scss = Object.entries(colors).reduce(
     `$restart_icon: "file://${State.restart_icon}"`,
 );
 
-print(State.restart_icon);
-
 await execAsync([
   "bash",
   "-c",

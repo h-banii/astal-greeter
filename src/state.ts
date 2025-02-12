@@ -9,6 +9,9 @@ const config =
   config_path != null
     ? await readFileAsync(config_path)
         .then(JSON.parse)
+        .then((obj) =>
+          Object.fromEntries(Object.entries(obj).filter(([a, v]) => v != null)),
+        )
         .catch((e) => {
           printerr(e);
           return {};

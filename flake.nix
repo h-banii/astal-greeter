@@ -29,6 +29,7 @@
       };
       config = pkgs.writeText "h-banii.greeter-config" ''
         {
+          "wallpaper": null,
           "font_family": "M PLUS 2",
           "icon": "${icon}",
           "vendor_name": "NixOS"
