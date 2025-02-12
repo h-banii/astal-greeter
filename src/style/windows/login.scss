@@ -14,7 +14,20 @@
 
 window.Login {
   font-weight: bold;
-  border-radius: 10px;
+
+  frame {
+    border-radius: 12px;
+  }
+
+  .radial-gradient {
+    padding: 100px;
+    background: radial-gradient(
+      closest-side,
+      dynamic.$primary,
+      rgba(dynamic.$surface, 0.3),
+      transparent
+    );
+  }
 
   entry {
     color: dynamic.$on_secondary_container;
@@ -26,8 +39,7 @@ window.Login {
   entry:active,
   entry:selected,
   entry:focus-visible {
-    color: dynamic.$on_primary_container;
-    background: rgba(dynamic.$primary_container, 0.8);
+    background: rgba(dynamic.$secondary_container, 0.4);
     outline-color: dynamic.$primary;
   }
 
@@ -55,7 +67,12 @@ window.Login {
     background-size: cover;
     background-repeat: no-repeat;
     background-image:
-      linear-gradient(90deg, dynamic.$primary, transparent),
+      linear-gradient(
+        90deg,
+        dynamic.$surface,
+        darker(rgba(dynamic.$primary, 0.5)),
+        transparent
+      ),
       url(dynamic.$wallpaper);
   }
 
