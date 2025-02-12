@@ -89,14 +89,14 @@ export default function Login(
                   </label>
                   <entry
                     placeholderText="username"
-                    onActivate={(self) => (username = self.text)}
+                    onChanged={(self) => (username = self.text)}
                   />
                   <PasswordEntry
                     placeholderText="password"
-                    onActivate={(self) => {
+                    onChanged={(self) => {
                       password = self.text;
-                      login();
                     }}
+                    onActivate={login}
                   />
                   <button cssClasses={["login-button"]} onClicked={login}>
                     login
