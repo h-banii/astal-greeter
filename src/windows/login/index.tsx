@@ -34,20 +34,26 @@ export default function Login(
   let password = "";
 
   const login = () =>
-    AstalGreet.login(username, password, "Hyprland", (_, res) => {
-      try {
-        AstalGreet.login_finish(res);
-      } catch (err) {
-        // TODO: Better error handling (if even possible...)
-        const message = `${err}`;
-        if (message.includes("socket not found")) {
-          App.quit();
-        } else {
-          // TODO: Show error popup
-          printerr(err);
+    AstalGreet.login(
+      username,
+      password,
+      State.sessions.at(State.selected_session)?.cmd ?? ":",
+      (_, res) => {
+        try {
+          AstalGreet.login_finish(res);
+          // TODO: Show loading widget ?
+        } catch (err) {
+          // TODO: Better error handling (if even possible...)
+          const message = `${err}`;
+          if (message.includes("socket not found")) {
+            App.quit();
+          } else {
+            // TODO: Show error popup
+            printerr(err);
+          }
         }
-      }
-    });
+      },
+    );
 
   return (
     <window
