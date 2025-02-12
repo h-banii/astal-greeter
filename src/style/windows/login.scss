@@ -20,11 +20,11 @@ window.Login {
   }
 
   .radial-gradient {
-    padding: 100px;
+    padding: 200px;
     background: radial-gradient(
       closest-side,
       dynamic.$primary,
-      rgba(dynamic.$surface, 0.3),
+      rgba(dynamic.$surface, 0.2),
       transparent
     );
   }
