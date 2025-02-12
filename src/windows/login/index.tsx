@@ -128,7 +128,7 @@ export default function Login(
             </box>
           </Frame>
         </Frame>
-        {Options(gdkmonitor, showLoginPopup)}
+        <Options />
       </centerbox>
     </window>
   );

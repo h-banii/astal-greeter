@@ -1,12 +1,7 @@
-import { exec, execAsync, Variable } from "astal";
+import { execAsync, Variable } from "astal";
 import { Gdk, Gtk } from "astal/gtk4";
 
-export default function Options(
-  gdkmonitor: Gdk.Monitor,
-  showLoginPopup: Variable<boolean>,
-) {
-  const time = Variable("").poll(1000, "date '+%H:%M'");
-
+export default function Options() {
   return (
     <box
       cssName="Options"
@@ -14,7 +9,6 @@ export default function Options(
       valign={Gtk.Align.END}
       halign={Gtk.Align.CENTER}
       spacing={16}
-      cssClasses={showLoginPopup((b) => (b ? ["vanish"] : []))}
     >
       <button
         cssClasses={["sleep"]}
