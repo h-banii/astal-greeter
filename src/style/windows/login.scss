@@ -1,4 +1,16 @@
 @use "dynamic";
+@use "sass:math";
+
+@function stroke($color, $radius) {
+  $hypotenuse: math.sqrt($radius * $radius + $radius * $radius);
+  @return $color($radius) + px 0px 0px,
+    $color $hypotenuse + px $hypotenuse + px 0px, $color 0px ($radius) + px 0px,
+    $color (-$hypotenuse + px) $hypotenuse + px 0px,
+    $color (-$radius) + px 0px 0px,
+    $color (-$hypotenuse + px) (-$hypotenuse + px) 0px,
+    $color 0px (-$radius) + px 0px,
+    $color $hypotenuse + px (-$hypotenuse + px) 0px;
+}
 
 window.Login {
   font-weight: bold;
@@ -6,7 +18,7 @@ window.Login {
 
   entry {
     color: dynamic.$on_secondary_container;
-    background: rgba(dynamic.$secondary_container, 0.5);
+    background: rgba(dynamic.$secondary_container, 0.7);
   }
 
   entry:hover,
@@ -25,14 +37,15 @@ window.Login {
   }
 
   .logo {
-    color: dynamic.$on_primary;
+    color: dynamic.$primary;
     font-size: 50px;
     padding: 0 10px;
-    text-shadow: 4px 4px 0 dynamic.$primary;
+    /* text-shadow: stroke(dynamic.$on_primary, 1); */
   }
 
-  .entries-container {
-    padding: 20px;
+  .login-container {
+    padding: 30px;
+    background-color: rgba(dynamic.$surface, 0.8);
   }
 
   .gradient {
@@ -42,28 +55,19 @@ window.Login {
     background-size: cover;
     background-repeat: no-repeat;
     background-image:
-      linear-gradient(
-        45deg,
-        rgba(dynamic.$primary, 0.8) 8%,
-        transparent 50%,
-        transparent
-      ),
-      linear-gradient(
-        -45deg,
-        rgba(dynamic.$secondary, 0.8) 8%,
-        transparent 50%,
-        transparent
-      ),
+      linear-gradient(90deg, dynamic.$primary, transparent),
       url(dynamic.$wallpaper);
   }
 
-  button {
-    border-radius: 8px;
+  .login-button {
+    margin-top: 5px;
+    margin-bottom: 10px;
     color: dynamic.$on_primary;
     background: dynamic.$primary;
   }
 
-  button:hover {
+  .login-button:hover {
+    color: dynamic.$on_primary_container;
     background: darker(dynamic.$primary_container);
   }
 }

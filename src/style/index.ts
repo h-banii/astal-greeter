@@ -5,7 +5,9 @@ import colors_fallback from "./colors.json";
 const static_path = `${SRC}/src/style`;
 const dynamic_path = `/tmp/greeter`;
 
-const colors = await execAsync(`matugen image '${State.wallpaper}' --json hex`)
+const colors = await execAsync(
+  `matugen image '${State.wallpaper}' --json hex --type scheme-fidelity`,
+)
   .then(JSON.parse)
   .catch((e) => {
     printerr("Matugen failed:", e);

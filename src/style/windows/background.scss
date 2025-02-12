@@ -1,16 +1,4 @@
 @use "dynamic";
-@use "sass:math";
-
-@function stroke($color, $radius) {
-  $hypotenuse: math.sqrt($radius * $radius + $radius * $radius);
-  @return $color($radius) + px 0px 0px,
-    $color $hypotenuse + px $hypotenuse + px 0px, $color 0px ($radius) + px 0px,
-    $color (-$hypotenuse + px) $hypotenuse + px 0px,
-    $color (-$radius) + px 0px 0px,
-    $color (-$hypotenuse + px) (-$hypotenuse + px) 0px,
-    $color 0px (-$radius) + px 0px,
-    $color $hypotenuse + px (-$hypotenuse + px) 0px;
-}
 
 window.Background {
   color: dynamic.$on_primary;

@@ -13,7 +13,7 @@ export default function Background(
   return (
     <window
       visible
-      layer={Astal.Layer.BACKGROUND}
+      layer={Astal.Layer.TOP}
       anchor={TOP | LEFT | RIGHT | BOTTOM}
       cssClasses={showLoginPopup((b) =>
         ["Background"].concat(b ? ["blur"] : []),
@@ -33,7 +33,7 @@ export default function Background(
         }
       }}
     >
-      <box type="overlay">{Clock(gdkmonitor, showLoginPopup)}</box>
+      {Clock(gdkmonitor, showLoginPopup)}
     </window>
   );
 }

@@ -60,29 +60,31 @@ export default function Login(
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
     >
-      <overlay halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
-        <box cssClasses={["gradient"]}>
-          <label
-            cssClasses={["logo"]}
-            halign={Gtk.Align.START}
-            valign={Gtk.Align.END}
-          >
-            {State.vendor_name}
-          </label>
-        </box>
+      <box
+        cssClasses={["gradient"]}
+        halign={Gtk.Align.CENTER}
+        valign={Gtk.Align.CENTER}
+      >
         <Frame
           type="overlay"
-          halign={Gtk.Align.END}
-          valign={Gtk.Align.END}
-          cssClasses={["entries-container"]}
+          halign={Gtk.Align.CENTER}
+          vexpand
+          cssClasses={["login-container"]}
         >
           <box
-            spacing={6}
+            spacing={7}
             orientation={Gtk.Orientation.VERTICAL}
             halign={Gtk.Align.START}
             valign={Gtk.Align.CENTER}
             vexpand
           >
+            <label
+              cssClasses={["logo"]}
+              halign={Gtk.Align.CENTER}
+              // valign={Gtk.Align.END}
+            >
+              {State.vendor_name}
+            </label>
             <entry
               placeholderText="username"
               onActivate={(self) => (username = self.text)}
@@ -94,10 +96,12 @@ export default function Login(
                 login();
               }}
             />
-            <button onClicked={login}>login</button>
+            <button cssClasses={["login-button"]} onClicked={login}>
+              login
+            </button>
           </box>
         </Frame>
-      </overlay>
+      </box>
     </window>
   );
 }
