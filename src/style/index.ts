@@ -17,8 +17,15 @@ const colors = await execAsync(
 
 const colors_scss = Object.entries(colors).reduce(
   (acc, [key, value]) => `$${key}: ${value}; ${acc}`,
-  `$font_family: "${State.font_family}"; $wallpaper: "file://${State.wallpaper}"; $icon: "file://${State.icon}"`,
+  `$font_family: "${State.font_family}"; ` +
+    `$wallpaper: "file://${State.wallpaper}"; ` +
+    `$icon: "file://${State.icon}"; ` +
+    `$shutdown_icon: "file://${State.shutdown_icon}"; ` +
+    `$sleep_icon: "file://${State.sleep_icon}"; ` +
+    `$restart_icon: "file://${State.restart_icon}"`,
 );
+
+print(State.restart_icon);
 
 await execAsync([
   "bash",

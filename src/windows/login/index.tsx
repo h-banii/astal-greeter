@@ -12,6 +12,8 @@ import Picture from "../../widgets/picture";
 import State from "../../state";
 import GdkPixbuf from "gi://GdkPixbuf?version=2.0";
 
+import Options from "./options";
+
 type PasswordEntryProps = ConstructProps<
   Gtk.PasswordEntry,
   Gtk.PasswordEntry.ConstructorProps
@@ -62,48 +64,51 @@ export default function Login(
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}
     >
-      <Frame
-        cssClasses={["radial-gradient"]}
-        halign={Gtk.Align.CENTER}
-        valign={Gtk.Align.CENTER}
-      >
-        <Frame cssClasses={["gradient"]}>
-          <box>
-            <Frame
-              halign={Gtk.Align.START}
-              vexpand
-              cssClasses={["login-container"]}
-            >
-              <box
-                spacing={7}
-                orientation={Gtk.Orientation.VERTICAL}
+      <overlay>
+        <Frame
+          cssClasses={["radial-gradient"]}
+          halign={Gtk.Align.CENTER}
+          valign={Gtk.Align.CENTER}
+        >
+          <Frame cssClasses={["gradient"]}>
+            <box>
+              <Frame
                 halign={Gtk.Align.START}
-                valign={Gtk.Align.CENTER}
                 vexpand
+                cssClasses={["login-container"]}
               >
-                <label cssClasses={["vendor-name"]} halign={Gtk.Align.CENTER}>
-                  {State.vendor_name}
-                </label>
-                <entry
-                  placeholderText="username"
-                  onActivate={(self) => (username = self.text)}
-                />
-                <PasswordEntry
-                  placeholderText="password"
-                  onActivate={(self) => {
-                    password = self.text;
-                    login();
-                  }}
-                />
-                <button cssClasses={["login-button"]} onClicked={login}>
-                  login
-                </button>
-              </box>
-            </Frame>
-            <Frame hexpand vexpand cssClasses={["icon"]}></Frame>
-          </box>
+                <box
+                  spacing={7}
+                  orientation={Gtk.Orientation.VERTICAL}
+                  halign={Gtk.Align.START}
+                  valign={Gtk.Align.CENTER}
+                  vexpand
+                >
+                  <label cssClasses={["vendor-name"]} halign={Gtk.Align.CENTER}>
+                    {State.vendor_name}
+                  </label>
+                  <entry
+                    placeholderText="username"
+                    onActivate={(self) => (username = self.text)}
+                  />
+                  <PasswordEntry
+                    placeholderText="password"
+                    onActivate={(self) => {
+                      password = self.text;
+                      login();
+                    }}
+                  />
+                  <button cssClasses={["login-button"]} onClicked={login}>
+                    login
+                  </button>
+                </box>
+              </Frame>
+              <Frame hexpand vexpand cssClasses={["icon"]}></Frame>
+            </box>
+          </Frame>
         </Frame>
-      </Frame>
+        {Options(gdkmonitor, showLoginPopup)}
+      </overlay>
     </window>
   );
 }
