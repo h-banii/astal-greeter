@@ -9,7 +9,8 @@ export default function Sessions() {
   return (
     <stack
       cssName="Sessions"
-      halign={Gtk.Align.CENTER}
+      halign={Gtk.Align.START}
+      valign={Gtk.Align.START}
       visibleChildName={visibleChildName()}
     >
       <button

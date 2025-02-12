@@ -113,6 +113,8 @@ window.Login {
   }
 
   Sessions {
+    margin: 20px;
+
     .display {
       @extend .outer-button;
     }
@@ -129,6 +131,7 @@ window.Login {
       @extend .outer-button;
       margin: 0 30px;
       padding: 20px;
+      margin-bottom: 40px;
     }
 
     frame:hover {

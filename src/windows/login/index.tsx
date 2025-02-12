@@ -14,7 +14,7 @@ import GdkPixbuf from "gi://GdkPixbuf?version=2.0";
 
 import Frame from "../../widgets/frame";
 import Options from "./options";
-import SessionSelector from "./sessions";
+import Sessions from "./sessions";
 
 type PasswordEntryProps = ConstructProps<
   Gtk.PasswordEntry,
@@ -29,6 +29,7 @@ export default function Login(
   gdkmonitor: Gdk.Monitor,
   showLoginPopup: Variable<boolean>,
 ) {
+  const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
   let username = "";
   let password = "";
 
@@ -60,17 +61,14 @@ export default function Login(
       onKeyPressed={(self, keyval, keycode, state) => {
         if (keyval == Gdk.KEY_Escape) showLoginPopup.set(false);
       }}
+      anchor={BOTTOM | TOP | LEFT | RIGHT}
       cssClasses={["Login"]}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
     >
-      <centerbox
-        vexpand
-        halign={Gtk.Align.CENTER}
-        orientation={Gtk.Orientation.VERTICAL}
-      >
-        <SessionSelector />
+      <centerbox orientation={Gtk.Orientation.VERTICAL}>
+        <Sessions />
         <Frame
           cssClasses={["radial-gradient"]}
           halign={Gtk.Align.CENTER}
