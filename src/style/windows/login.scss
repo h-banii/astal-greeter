@@ -56,10 +56,10 @@ window.Login {
   }
 
   .icon {
-    opacity: 0.8;
-    margin: 30px;
+    opacity: 0.9;
+    margin: 20px;
     background-position: center center;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-image: url(dynamic.$icon);
   }
