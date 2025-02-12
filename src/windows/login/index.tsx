@@ -65,10 +65,27 @@ export default function Login(
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
-      halign={Gtk.Align.CENTER}
-      valign={Gtk.Align.CENTER}
     >
-      <overlay>
+      <centerbox
+        vexpand
+        halign={Gtk.Align.CENTER}
+        orientation={Gtk.Orientation.VERTICAL}
+      >
+        <menubutton cssClasses={["session-button"]}>
+          <label
+            hexpand={false}
+            label={State.selected_session(
+              (session: number) => State.sessions[session].name,
+            )}
+          />
+          <popover halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
+            <box orientation={Gtk.Orientation.VERTICAL}>
+              {State.sessions.map((session: { name: string }) => (
+                <button label={session.name} />
+              ))}
+            </box>
+          </popover>
+        </menubutton>
         <Frame
           cssClasses={["radial-gradient"]}
           halign={Gtk.Align.CENTER}
@@ -112,7 +129,7 @@ export default function Login(
           </Frame>
         </Frame>
         {Options(gdkmonitor, showLoginPopup)}
-      </overlay>
+      </centerbox>
     </window>
   );
 }

@@ -90,6 +90,7 @@ window.Login {
   }
 
   .login-button {
+    border-radius: 5px;
     margin-top: 5px;
     margin-bottom: 15px;
     color: dynamic.$on_primary;
@@ -101,25 +102,28 @@ window.Login {
     background: darker(dynamic.$primary_container);
   }
 
-  .button_icon {
+  .button-icon {
     @extend .image;
     min-width: 50px;
     min-height: 50px;
     margin: 20px;
   }
 
+  .session-button {
+  }
+
   .shutdown {
-    @extend .button_icon;
+    @extend .button-icon;
     background-image: url(dynamic.$shutdown_icon);
   }
 
   .restart {
-    @extend .button_icon;
+    @extend .button-icon;
     background-image: url(dynamic.$restart_icon);
   }
 
   .sleep {
-    @extend .button_icon;
+    @extend .button-icon;
     background-image: url(dynamic.$sleep_icon);
   }
 }

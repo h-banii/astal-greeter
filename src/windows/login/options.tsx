@@ -9,7 +9,6 @@ export default function Options(
 
   return (
     <box
-      type="overlay"
       cssName="Options"
       orientation={Gtk.Orientation.HORIZONTAL}
       valign={Gtk.Align.END}

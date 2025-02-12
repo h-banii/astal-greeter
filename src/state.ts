@@ -1,4 +1,4 @@
-import { execAsync, GLib, readFileAsync } from "astal";
+import { execAsync, GLib, readFileAsync, Variable } from "astal";
 
 // State values are defined from CLI or from envvar
 // ags run -d WALLPAPER="'/path/to/file'"
@@ -33,7 +33,7 @@ const State = Object.assign(
       { name: "Hyprland", cmd: "uwsm start -- hyprland.desktop" },
       { name: "Do nothing", cmd: ":" },
     ],
-    selected_session: 0,
+    selected_session: Variable(0),
     debug: !GLib.getenv("GREETD_SOCK"),
     tmp: "/tmp/greeter",
   },
