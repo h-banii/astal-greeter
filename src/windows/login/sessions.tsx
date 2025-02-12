@@ -4,14 +4,14 @@ import { Gdk, Gtk } from "astal/gtk4";
 import State from "../../state";
 
 export default function Sessions() {
-  const visibleChildName = Variable("display");
+  const showSelector = Variable(false);
 
   return (
-    <stack
+    <box
       cssName="Sessions"
       halign={Gtk.Align.START}
       valign={Gtk.Align.START}
-      visibleChildName={visibleChildName()}
+      spacing={12}
     >
       <button
         cssClasses={["display"]}
@@ -19,19 +19,27 @@ export default function Sessions() {
         label={State.selected_session(
           (session: number) => State.sessions[session].name,
         )}
-        onClicked={() => visibleChildName.set("select")}
+        onClicked={() => {
+          if (State.sessions.length > 1) showSelector.set(!showSelector.get());
+        }}
       />
-      <box spacing={20} cssClasses={["select"]} name="select">
-        {State.sessions.map((session: { name: string }, index: number) => (
-          <button
-            label={session.name}
-            onClicked={() => {
-              State.selected_session.set(index);
-              visibleChildName.set("display");
-            }}
-          />
-        ))}
-      </box>
-    </stack>
+      <revealer
+        revealChild={showSelector()}
+        transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
+      >
+        <box spacing={6} cssClasses={["select"]} name="select">
+          <label label="▸" />
+          {State.sessions.map((session: { name: string }, index: number) => (
+            <button
+              label={session.name}
+              onClicked={() => {
+                State.selected_session.set(index);
+                showSelector.set(false);
+              }}
+            />
+          ))}
+        </box>
+      </revealer>
+    </box>
   );
 }

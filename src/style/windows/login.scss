@@ -113,17 +113,27 @@ window.Login {
   }
 
   Sessions {
+    border-radius: 10px;
+
+    button {
+      color: dynamic.$on_primary;
+    }
+
+    button:hover {
+      transition: opacity 0.3s ease-in-out;
+      opacity: 0.6;
+    }
+
     margin: 20px;
+    transition: background 0.3s ease-in-out;
+  }
 
-    .display {
-      @extend .outer-button;
-    }
-
-    .select {
-      button {
-        @extend .outer-button;
-      }
-    }
+  Sessions:hover {
+    background: linear-gradient(
+      160deg,
+      rgba(dynamic.$primary_container, 0.3) 20%,
+      transparent
+    );
   }
 
   Options {
