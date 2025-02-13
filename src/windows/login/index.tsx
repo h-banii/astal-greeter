@@ -95,10 +95,18 @@ export default function Login(
                   <label cssClasses={["vendor-name"]} halign={Gtk.Align.CENTER}>
                     {State.vendor_name}
                   </label>
-                  <entry
-                    placeholderText="username"
-                    onChanged={(self) => (username = self.text)}
-                  />
+                  {(() => {
+                    const usernameEntry = (
+                      <entry
+                        onDestroy={showLoginPopup.subscribe(() =>
+                          usernameEntry.grab_focus(),
+                        )}
+                        placeholderText="username"
+                        onChanged={(self) => (username = self.text)}
+                      />
+                    );
+                    return usernameEntry;
+                  })()}
                   <PasswordEntry
                     placeholderText="password"
                     onChanged={(self) => {
