@@ -2,12 +2,9 @@ import Gio from "gi://Gio";
 import { App, Astal, Gtk, Gdk, astalify, ConstructProps } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
-import { Frame } from "../../widgets";
+import { Frame, Image } from "../../widgets";
 import NotificationState from "./types";
 export { default as NotificationState } from "./types";
-
-type ImageProps = ConstructProps<Gtk.Image, Gtk.Image.ConstructorProps>;
-const Image = astalify<Gtk.Image, Gtk.Image.ConstructorProps>(Gtk.Image, {});
 
 export const NotificationAction = {
   Dismiss: { state: "hidden" } as const satisfies NotificationState,
