@@ -15,6 +15,7 @@ import GdkPixbuf from "gi://GdkPixbuf?version=2.0";
 import Frame from "../../widgets/frame";
 import Options from "./options";
 import Sessions from "./sessions";
+import { NotificationAction, NotificationState } from "../notify";
 
 type PasswordEntryProps = ConstructProps<
   Gtk.PasswordEntry,
@@ -28,6 +29,7 @@ const PasswordEntry = astalify<
 export default function Login(
   gdkmonitor: Gdk.Monitor,
   showLoginPopup: Variable<boolean>,
+  notification: Variable<NotificationState>,
 ) {
   const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
   let username = "";
@@ -40,14 +42,17 @@ export default function Login(
       State.sessions.at(State.selected_session)?.cmd ?? ":",
       (_, res) => {
         if (State.debug) {
-          App.quit();
+          notification.set(NotificationAction.Loading("Quitting..."));
+          setTimeout(() => {
+            App.quit();
+          }, 3000);
           return;
         }
         try {
           AstalGreet.login_finish(res);
-          // TODO: Show loading widget ?
+          notification.set(NotificationAction.Logging);
         } catch (err) {
-          // TODO: Show error popup
+          notification.set(NotificationAction.Error(`${err}`));
           printerr(err);
         }
       },
@@ -56,7 +61,7 @@ export default function Login(
   return (
     <window
       visible={showLoginPopup((t) => t)}
-      layer={Astal.Layer.OVERLAY}
+      layer={Astal.Layer.TOP}
       keymode={Astal.Keymode.ON_DEMAND}
       onKeyPressed={(self, keyval, keycode, state) => {
         if (keyval == Gdk.KEY_Escape) showLoginPopup.set(false);

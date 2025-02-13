@@ -3,10 +3,12 @@ import { App, Astal, Gtk, Gdk, astalify } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
 import Clock from "./clock";
+import { NotificationState } from "../notify";
 
 export default function Background(
   gdkmonitor: Gdk.Monitor,
   showLoginPopup: Variable<boolean>,
+  notification: Variable<NotificationState>,
 ) {
   const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor;
 

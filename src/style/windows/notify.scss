@@ -1,0 +1,6 @@
+@use "dynamic";
+
+Notify {
+  color: dynamic.$on_surface;
+  background: rgba(dynamic.$surface, 0.5);
+}

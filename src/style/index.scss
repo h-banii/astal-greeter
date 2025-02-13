@@ -1,5 +1,6 @@
-@use "windows/login";
 @use "windows/background";
+@use "windows/login";
+@use "windows/notify";
 @use "dynamic";
 
 * {
