@@ -93,6 +93,7 @@
           tmp=`mktemp`
           jq '.dependencies.astal |= "${astalPackages.gjs}/share/astal/gjs"' < package.json > $tmp
           mv $tmp package.json
+          export -f run format
           export H_BANII_GREET_CONFIG=${config}
           npm i --frozen-lockfile
         '';
