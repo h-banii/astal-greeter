@@ -43,19 +43,4 @@ const State = Object.assign(
   config,
 );
 
-if (
-  State.wallpaper == wallpaper_path &&
-  !GLib.file_test(wallpaper_path, GLib.FileTest.EXISTS)
-) {
-  const nekosapi_get_random_image_file = (rating: string[] = []) =>
-    rating.length > 0
-      ? `https://api.nekosapi.com/v4/images/random/file?rating=${rating.join(",")}`
-      : `https://api.nekosapi.com/v4/images/random/file`;
-  await execAsync([
-    "bash",
-    "-c",
-    `curl -L '${nekosapi_get_random_image_file(["safe", "suggestive"])}' > ${wallpaper_path}`,
-  ]).catch(printerr);
-}
-
 export default State;
