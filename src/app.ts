@@ -11,19 +11,10 @@ import State from "./state";
 import Fetch from "./fetch";
 
 async function main() {
-  const windows = new Map<Gdk.Monitor, Gtk.Widget[]>();
-
   const notification: Variable<NotificationState> = Variable(
     NotificationAction.Dismiss,
   );
   const notify = Notify(notification);
-
-  const add_windows = (gdkmonitor: Gdk.Monitor) => {
-    const showLoginPopup = Variable(false);
-    const login = Login(gdkmonitor, showLoginPopup, notification);
-    const background = Background(gdkmonitor, showLoginPopup, notification);
-    windows.set(gdkmonitor, [login, background]);
-  };
 
   if (!GLib.file_test(State.wallpaper, GLib.FileTest.EXISTS)) {
     notification.set(NotificationAction.Loading("Fetching wallpaper..."));
@@ -43,7 +34,15 @@ async function main() {
     })
     .then((css) => App.apply_css(css));
 
-  App.get_monitors().reverse().map(add_windows);
+  const windows = new Map<Gdk.Monitor, Gtk.Widget[]>();
+  App.get_monitors()
+    .reverse()
+    .map((gdkmonitor: Gdk.Monitor) => {
+      const showLoginPopup = Variable(false);
+      const login = Login(gdkmonitor, showLoginPopup, notification);
+      const background = Background(gdkmonitor, showLoginPopup, notification);
+      windows.set(gdkmonitor, [login, background]);
+    });
 }
 
 App.start({
