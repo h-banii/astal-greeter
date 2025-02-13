@@ -1,5 +1,5 @@
 import { App, Gtk, Gdk } from "astal/gtk4";
-import css from "./style";
+import Style from "./style";
 import Login from "./windows/login";
 import Background from "./windows/background";
 import Notify, {
@@ -10,7 +10,7 @@ import { execAsync, GLib, Variable } from "astal";
 import State from "./state";
 import Fetch from "./fetch";
 
-function main() {
+async function main() {
   const windows = new Map<Gdk.Monitor, Gtk.Widget[]>();
 
   const notification: Variable<NotificationState> = Variable(
@@ -27,17 +27,26 @@ function main() {
 
   if (!GLib.file_test(State.wallpaper, GLib.FileTest.EXISTS)) {
     notification.set(NotificationAction.Loading("Fetching wallpaper..."));
-    execAsync([
+    await execAsync([
       "bash",
       "-c",
       `curl -L '${Fetch.NekosAPI(["safe", "suggestive"])}' > ${State.wallpaper}`,
-    ]).catch(printerr);
+    ])
+      .then(() => notification.set(NotificationAction.Dismiss))
+      .catch((e) => notification.set(NotificationAction.Error(e)));
   }
+
+  await Style.matugen()
+    .catch((e) => {
+      printerr("Sass failed:", e);
+      return "";
+    })
+    .then((css) => App.apply_css(css));
 
   App.get_monitors().reverse().map(add_windows);
 }
 
 App.start({
-  css,
+  css: Style.css,
   main,
 });

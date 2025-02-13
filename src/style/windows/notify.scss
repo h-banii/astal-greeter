@@ -3,6 +3,7 @@
 Notify {
   background {
     filter: brightness(50%);
+    background: black;
     &.error {
       background: radial-gradient(dynamic.$error, transparent);
     }
@@ -12,7 +13,9 @@ Notify {
     }
   }
   frame {
+    color: white;
     color: dynamic.$on_surface;
+    background: black;
     background: dynamic.$surface_container;
   }
   label {
