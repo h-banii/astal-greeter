@@ -1,9 +1,22 @@
 @use "dynamic";
 
 Notify {
-  color: dynamic.$on_surface;
-  background: rgba(dynamic.$surface, 0.5);
+  background {
+    filter: brightness(50%);
+    &.error {
+      background: radial-gradient(dynamic.$error, transparent);
+    }
+    &.loading,
+    &.logging {
+      background: radial-gradient(dynamic.$primary_container, transparent);
+    }
+  }
   frame {
-    border-radius: 20px;
+    color: dynamic.$on_surface;
+    background: dynamic.$surface_container;
+  }
+  label {
+    font-size: 24px;
+    padding: 34px;
   }
 }

@@ -35,37 +35,48 @@ export default function Notify(notification: Variable<NotificationState>) {
         notification.set(NotificationAction.Dismiss);
       }}
     >
-      <Frame>
-        <box halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
-          <Image
-            widthRequest={200}
-            heightRequest={200}
-            setup={(self) => {
-              const paintable = Gtk.MediaFile.new_for_filename(
-                State.loading_icon,
-              );
-              paintable.set_loop(true);
-              paintable.play();
-              self.paintable = paintable;
-            }}
-          />
-          <label
-            vexpand
-            hexpand
-            label={notification((s) => {
-              switch (s.state) {
-                case "error":
-                case "loading":
-                  return s.message;
-                case "logging":
-                  // TODO: Display custom message and/or icon
-                  return "";
-              }
-              return "";
-            })}
-          />
-        </box>
-      </Frame>
+      <overlay>
+        <box cssName="background" cssClasses={notification((n) => [n.state])} />
+        <Frame
+          type="overlay"
+          halign={Gtk.Align.CENTER}
+          valign={Gtk.Align.CENTER}
+        >
+          <box>
+            <Image
+              widthRequest={200}
+              heightRequest={200}
+              setup={(self) => {
+                const paintable = Gtk.MediaFile.new_for_filename(
+                  State.loading_icon,
+                );
+                paintable.set_loop(true);
+                paintable.play();
+                self.paintable = paintable;
+              }}
+            />
+            <label
+              visible={notification(
+                (n) =>
+                  "message" in n &&
+                  typeof n.message != "undefined" &&
+                  n.message.length > 0,
+              )}
+              label={notification((s) => {
+                switch (s.state) {
+                  case "error":
+                  case "loading":
+                    return `${s.message}`;
+                  case "logging":
+                    // TODO: Display custom message and/or icon
+                    return "";
+                }
+                return "";
+              })}
+            />
+          </box>
+        </Frame>
+      </overlay>
     </window>
   );
 }
