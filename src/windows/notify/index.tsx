@@ -3,36 +3,11 @@ import { App, Astal, Gtk, Gdk, astalify, ConstructProps } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
 import { Frame } from "../../widgets";
+import NotificationState from "./types";
+export { default as NotificationState } from "./types";
 
 type ImageProps = ConstructProps<Gtk.Image, Gtk.Image.ConstructorProps>;
 const Image = astalify<Gtk.Image, Gtk.Image.ConstructorProps>(Gtk.Image, {});
-
-type NotificationLoadingState = {
-  state: "loading";
-  message: string;
-  icon: string | undefined;
-};
-
-type NotificationErrorState = {
-  state: "error";
-  message: string;
-  icon: string | undefined;
-};
-
-type NotificationLoggingState = {
-  state: "logging";
-  icon: string | undefined;
-};
-
-type NotificationHiddenState = {
-  state: "hidden";
-};
-
-export type NotificationState =
-  | NotificationLoggingState
-  | NotificationLoadingState
-  | NotificationErrorState
-  | NotificationHiddenState;
 
 export const NotificationAction = {
   Dismiss: { state: "hidden" } as const satisfies NotificationState,
