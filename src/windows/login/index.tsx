@@ -8,11 +8,10 @@ import {
 } from "astal/gtk4";
 import { bind, Gio, Variable } from "astal";
 import AstalGreet from "gi://AstalGreet";
-import Picture from "../../widgets/picture";
 import State from "../../state";
 import GdkPixbuf from "gi://GdkPixbuf?version=2.0";
 
-import Frame from "../../widgets/frame";
+import { Frame } from "../../widgets";
 import Options from "./options";
 import Sessions from "./sessions";
 import { NotificationAction, NotificationState } from "../notify";

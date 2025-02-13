@@ -2,8 +2,7 @@ import Gio from "gi://Gio";
 import { App, Astal, Gtk, Gdk, astalify, ConstructProps } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
-import Picture from "../../widgets/picture";
-import Frame from "../../widgets/frame";
+import { Frame } from "../../widgets";
 
 type ImageProps = ConstructProps<Gtk.Image, Gtk.Image.ConstructorProps>;
 const Image = astalify<Gtk.Image, Gtk.Image.ConstructorProps>(Gtk.Image, {});

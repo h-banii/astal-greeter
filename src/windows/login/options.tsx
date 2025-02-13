@@ -1,7 +1,7 @@
 import { execAsync, Variable } from "astal";
 import { Gdk, Gtk } from "astal/gtk4";
 
-import Frame from "../../widgets/frame";
+import { Frame } from "../../widgets";
 
 export default function Options() {
   return (
