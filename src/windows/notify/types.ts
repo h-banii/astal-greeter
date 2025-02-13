@@ -1,12 +1,12 @@
 type NotificationLoadingState = {
   state: "loading";
-  message: string;
+  message: string | undefined;
   icon: string | undefined;
 };
 
 type NotificationErrorState = {
   state: "error";
-  message: string;
+  message: string | undefined;
   icon: string | undefined;
 };
 

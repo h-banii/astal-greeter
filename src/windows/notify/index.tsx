@@ -12,9 +12,9 @@ export const NotificationAction = {
     state: "logging",
     icon: "TODO",
   } as const satisfies NotificationState,
-  Loading: (message: string) =>
+  Loading: (message: string | undefined = undefined) =>
     ({ state: "loading", message }) as NotificationState,
-  Error: (message: string) =>
+  Error: (message: string | undefined = undefined) =>
     ({ state: "error", message }) as NotificationState,
 };
 
