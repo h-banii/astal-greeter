@@ -3,5 +3,6 @@ node_modules/
 result
 *.env
 *.svg
+*.webm
 *.json
 wallpaper
