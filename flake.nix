@@ -17,12 +17,22 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       astalPackages = ags.inputs.astal.packages.${system};
-      extraPackages = [
-        astalPackages.greet
-        pkgs.matugen
-        pkgs.dart-sass
-        self.packages.${system}.fontloader
-      ];
+      extraPackages =
+        [
+          astalPackages.greet
+          pkgs.matugen
+          pkgs.dart-sass
+          self.packages.${system}.fontloader
+        ]
+        ++ (with pkgs.gst_all_1; [
+          gstreamer
+          gst-plugins-base
+          gst-plugins-good
+          gst-plugins-bad
+          gst-plugins-ugly
+          gst-libav
+          gst-vaapi
+        ]);
       icon = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/refs/heads/master/logo/nix-snowflake-white.svg";
         hash = "sha256-J/t94Bz0fUCL92m1JY9gznu0DLfy6uIQO6AJGK3CEAY=";

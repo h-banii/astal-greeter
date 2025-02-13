@@ -3,4 +3,7 @@
 Notify {
   color: dynamic.$on_surface;
   background: rgba(dynamic.$surface, 0.5);
+  frame {
+    border-radius: 20px;
+  }
 }

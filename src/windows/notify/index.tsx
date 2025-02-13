@@ -1,25 +1,28 @@
 import Gio from "gi://Gio";
-import { App, Astal, Gtk, Gdk, astalify } from "astal/gtk4";
+import { App, Astal, Gtk, Gdk, astalify, ConstructProps } from "astal/gtk4";
 import { bind, Variable } from "astal";
 import State from "../../state";
+import Picture from "../../widgets/picture";
+import Frame from "../../widgets/frame";
 
-// export interface Notification {
-//   show: boolean,
-//   message: string,
-// }
+type ImageProps = ConstructProps<Gtk.Image, Gtk.Image.ConstructorProps>;
+const Image = astalify<Gtk.Image, Gtk.Image.ConstructorProps>(Gtk.Image, {});
+
 type NotificationLoadingState = {
   state: "loading";
   message: string;
+  icon: string | undefined;
 };
 
 type NotificationErrorState = {
   state: "error";
   message: string;
+  icon: string | undefined;
 };
 
 type NotificationLoggingState = {
   state: "logging";
-  icon: string;
+  icon: string | undefined;
 };
 
 type NotificationHiddenState = {
@@ -61,22 +64,37 @@ export default function Notify(notification: Variable<NotificationState>) {
         notification.set(NotificationAction.Dismiss);
       }}
     >
-      <label
-        vexpand
-        hexpand
-        halign={Gtk.Align.CENTER}
-        label={notification((s) => {
-          switch (s.state) {
-            case "error":
-            case "loading":
-              return s.message;
-            case "logging":
-              // TODO: Display custom message and/or icon
+      <Frame>
+        <box halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
+          <Image
+            widthRequest={200}
+            heightRequest={200}
+            setup={(self) => {
+              const paintable = Gtk.MediaFile.new_for_filename(
+                State.loading_icon,
+              );
+              paintable.set_loop(true);
+              paintable.play();
+              self.paintable = paintable;
+            }}
+          />
+          <label
+            vexpand
+            hexpand
+            label={notification((s) => {
+              switch (s.state) {
+                case "error":
+                case "loading":
+                  return s.message;
+                case "logging":
+                  // TODO: Display custom message and/or icon
+                  return "";
+              }
               return "";
-          }
-          return "";
-        })}
-      />
+            })}
+          />
+        </box>
+      </Frame>
     </window>
   );
 }
